@@ -1,0 +1,7 @@
+{
+  "capabilities": [
+    "host.ui.message-box"
+  ],
+  "network": [],
+  "secrets": []
+}

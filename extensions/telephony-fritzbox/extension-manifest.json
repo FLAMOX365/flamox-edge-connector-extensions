@@ -1,0 +1,96 @@
+{
+  "$schema": "https://schemas.flamox.com/edge-connector/extension-manifest/v2.json",
+  "schemaVersion": 2,
+  "id": "telephony.fritzbox",
+  "displayName": "Telephony for FRITZ!Box",
+  "description": "Connects telephony devices managed by a FRITZ!Box through TR-064.",
+  "publisher": "FLAMOX365",
+  "version": "0.1.0",
+  "runtime": {
+    "kind": "deno-worker",
+    "entrypoint": "src/main.ts"
+  },
+  "capabilities": [
+    "telephony.provider.configure",
+    "telephony.provider.health.read",
+    "telephony.call.start",
+    "telephony.call.end",
+    "telephony.call-history.read"
+  ],
+  "permissions": {
+    "network": [],
+    "configuredNetwork": [
+      {
+        "configurationPointer": "/baseUrl",
+        "allowedPorts": [
+          49000,
+          49443
+        ]
+      }
+    ],
+    "secrets": [
+      "DEVICE_USERNAME",
+      "DEVICE_PASSWORD"
+    ]
+  },
+  "actions": [
+    {
+      "name": "configure",
+      "description": "Validates the connection and configures the dialing device.",
+      "idempotent": true,
+      "timeoutSeconds": 30
+    },
+    {
+      "name": "health",
+      "description": "Checks TR-064 availability, credentials and required telephony services.",
+      "idempotent": true,
+      "timeoutSeconds": 30
+    },
+    {
+      "name": "dial",
+      "description": "Starts Click-to-Call through the configured telephony device.",
+      "idempotent": false,
+      "timeoutSeconds": 30
+    },
+    {
+      "name": "hangup",
+      "description": "Ends the active dialing process.",
+      "idempotent": true,
+      "timeoutSeconds": 30
+    },
+    {
+      "name": "list-calls",
+      "description": "Returns a normalized call history and an incremental provider cursor.",
+      "idempotent": true,
+      "timeoutSeconds": 60
+    }
+  ],
+  "contributions": [
+    {
+      "id": "telephony-provider",
+      "area": "telephony",
+      "contract": "telephony.provider",
+      "contractVersion": 1,
+      "operations": {
+        "startCall": "dial",
+        "endCall": "hangup",
+        "synchronizeCalls": "list-calls",
+        "health": "health"
+      }
+    }
+  ],
+  "translations": {
+    "de": "translations/de.json",
+    "en": "translations/en.json"
+  },
+  "configurationSchema": "configuration.schema.json",
+  "configurationUiSchema": "configuration.ui.json",
+  "notices": "THIRD_PARTY_NOTICES.md",
+  "lifecycle": {
+    "configure": "configure"
+  },
+  "health": {
+    "action": "health",
+    "timeoutSeconds": 30
+  }
+}

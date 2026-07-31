@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "sdk": {
+    "repository": "https://github.com/FLAMOX365/flamox-edge-connector.git",
+    "commit": "8c9331be158244473ead8ccaf02fb55e242e8a81",
+    "path": "sdk/mod.ts"
+  },
+  "packages": [
+    {
+      "specifier": "jsr:@std/xml@0.1.3",
+      "purpose": "Standards-compliant XML parsing"
+    },
+    {
+      "specifier": "npm:@noble/hashes@2.2.0",
+      "purpose": "MD5 required by TR-064 content-level authentication"
+    }
+  ]
+}

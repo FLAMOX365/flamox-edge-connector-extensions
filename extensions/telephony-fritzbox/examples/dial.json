@@ -1,0 +1,9 @@
+{
+  "callIntentId": "00000000-0000-4000-8000-000000000000",
+  "phoneNumber": "+49 30 12345678",
+  "actor": {
+    "userId": "example-user",
+    "address": "developer@example.com",
+    "displayName": "Developer"
+  }
+}

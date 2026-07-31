@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "check": "deno check src/main.ts src/main.spec.ts src/md5.spec.ts src/call-list.spec.ts",
+    "test": "deno test src/main.spec.ts src/md5.spec.ts src/call-list.spec.ts"
+  },
+  "imports": {
+    "@edge-connector/sdk": "../../dependencies/edge-connector/sdk/mod.ts",
+    "@noble/hashes/legacy": "npm:@noble/hashes@2.2.0/legacy.js",
+    "@std/assert": "jsr:@std/assert@1.0.19",
+    "@std/xml": "jsr:@std/xml@0.1.3"
+  }
+}

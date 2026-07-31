@@ -1,0 +1,36 @@
+name: Extension proposal
+description: Propose a new extension or a focused extension improvement.
+title: "[Extension]: "
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: User outcome
+      description: Describe the integration outcome and target system or protocol.
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: Contract and actions
+      description: Identify the Edge Connector area contract or proposed standalone actions.
+    validations:
+      required: true
+  - type: textarea
+    id: permissions
+    attributes:
+      label: Required capabilities, network targets, and secrets
+      description: Explain the smallest permissions the extension needs.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Runtime dependencies and licensing
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing extensions and issues for equivalent behavior.
+          required: true

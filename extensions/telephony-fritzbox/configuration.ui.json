@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "fields": {
+    "baseUrl": {
+      "label": "TR-064 address",
+      "description": "Local address reachable from the Edge Connector.",
+      "placeholder": "http://fritz.box:49000",
+      "control": "text"
+    },
+    "phoneName": {
+      "label": "Dialing device",
+      "placeholder": "Sales desk phone",
+      "control": "text"
+    },
+    "timeZone": {
+      "label": "Call-list time zone",
+      "placeholder": "Europe/Berlin",
+      "control": "text"
+    },
+    "defaultCallListDays": {
+      "label": "History in days",
+      "control": "number"
+    },
+    "defaultCallListLimit": {
+      "label": "Maximum entries",
+      "control": "number"
+    },
+    "requestTimeoutSeconds": {
+      "label": "Request timeout in seconds",
+      "control": "number"
+    },
+    "DEVICE_USERNAME": {
+      "label": "FRITZ!Box user name",
+      "control": "text",
+      "secret": true
+    },
+    "DEVICE_PASSWORD": {
+      "label": "FRITZ!Box password",
+      "control": "password",
+      "secret": true
+    }
+  },
+  "sections": [
+    {
+      "title": "Connection",
+      "fields": [
+        "baseUrl",
+        "DEVICE_USERNAME",
+        "DEVICE_PASSWORD"
+      ]
+    },
+    {
+      "title": "Telephony",
+      "fields": [
+        "phoneName",
+        "timeZone",
+        "defaultCallListDays",
+        "defaultCallListLimit",
+        "requestTimeoutSeconds"
+      ]
+    }
+  ]
+}

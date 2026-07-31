@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.flamox.com/edge-connector/extension-manifest/v2.json",
+  "schemaVersion": 2,
+  "id": "hello-world",
+  "displayName": "Hello World",
+  "description": "Displays a Hello World message on the connected system.",
+  "publisher": "FLAMOX365",
+  "version": "0.1.0",
+  "runtime": {
+    "kind": "deno-worker",
+    "entrypoint": "src/main.ts"
+  },
+  "capabilities": [
+    "host.ui.message-box"
+  ],
+  "permissions": {
+    "network": [],
+    "secrets": []
+  },
+  "actions": [
+    {
+      "name": "show-message",
+      "description": "Displays a native message box.",
+      "idempotent": false,
+      "timeoutSeconds": 30
+    }
+  ],
+  "contributions": [],
+  "translations": {
+    "de": "translations/de.json",
+    "en": "translations/en.json"
+  },
+  "configurationSchema": "configuration.schema.json",
+  "configurationUiSchema": "configuration.ui.json"
+}

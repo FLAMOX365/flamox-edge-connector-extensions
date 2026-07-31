@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "fields": {
+    "defaultTitle": {
+      "label": "Default message title",
+      "placeholder": "Hello from the Edge Connector",
+      "control": "text"
+    }
+  },
+  "sections": [
+    {
+      "title": "Message",
+      "fields": [
+        "defaultTitle"
+      ]
+    }
+  ]
+}

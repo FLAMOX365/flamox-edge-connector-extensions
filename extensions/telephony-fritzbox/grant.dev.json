@@ -1,0 +1,16 @@
+{
+  "capabilities": [
+    "telephony.provider.configure",
+    "telephony.provider.health.read",
+    "telephony.call.start",
+    "telephony.call.end",
+    "telephony.call-history.read"
+  ],
+  "network": [
+    "fritz.box:49000"
+  ],
+  "secrets": [
+    "DEVICE_USERNAME",
+    "DEVICE_PASSWORD"
+  ]
+}

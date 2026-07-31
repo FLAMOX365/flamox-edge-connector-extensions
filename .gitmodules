@@ -1,0 +1,3 @@
+[submodule "edge-connector-sdk"]
+	path = dependencies/edge-connector
+	url = https://github.com/FLAMOX365/flamox-edge-connector.git

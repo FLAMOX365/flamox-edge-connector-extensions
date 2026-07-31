@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hello World configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "defaultTitle": {
+      "type": "string",
+      "title": "Default message title",
+      "minLength": 1,
+      "maxLength": 200,
+      "default": "Hello from the Edge Connector"
+    }
+  }
+}

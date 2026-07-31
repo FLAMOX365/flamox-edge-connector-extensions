@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Telephony for FRITZ!Box configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "baseUrl"
+  ],
+  "properties": {
+    "baseUrl": {
+      "type": "string",
+      "title": "TR-064 base URL",
+      "description": "Local TR-064 endpoint of the FRITZ!Box. Use port 49000 for HTTP or 49443 for HTTPS.",
+      "pattern": "^https?://[^/?#:]+:(?:49000|49443)$",
+      "default": "http://fritz.box:49000"
+    },
+    "phoneName": {
+      "type": "string",
+      "title": "Dialing device",
+      "description": "Optional FRITZ!Box telephony device used for Click-to-Call.",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "timeZone": {
+      "type": "string",
+      "title": "Call-list time zone",
+      "description": "IANA time zone used to convert the local timestamps returned by the call list.",
+      "minLength": 1,
+      "maxLength": 100,
+      "default": "Europe/Berlin"
+    },
+    "defaultCallListDays": {
+      "type": "integer",
+      "title": "Default history in days",
+      "minimum": 0,
+      "maximum": 999,
+      "default": 30
+    },
+    "defaultCallListLimit": {
+      "type": "integer",
+      "title": "Maximum entries per synchronization",
+      "description": "Local upper bound applied to the maximum record count requested by FLAMOX365.",
+      "minimum": 1,
+      "maximum": 999,
+      "default": 250
+    },
+    "requestTimeoutSeconds": {
+      "type": "integer",
+      "title": "Request timeout in seconds",
+      "minimum": 1,
+      "maximum": 60,
+      "default": 15
+    }
+  }
+}
