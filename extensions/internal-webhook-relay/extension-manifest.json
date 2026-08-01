@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schemas.flamox.com/edge-connector/extension-manifest/v2.json",
+  "schemaVersion": 2,
+  "id": "integration.internal-webhook-relay",
+  "displayName": "Internal Webhook Relay",
+  "description": "Forwards signed business events to one customer-local HTTP endpoint.",
+  "publisher": "FLAMOX365",
+  "version": "0.1.0",
+  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "capabilities": ["integration.webhook.forward"],
+  "permissions": {
+    "network": [],
+    "configuredNetwork": [
+      {
+        "configurationPointer": "/endpointUrl",
+        "allowedPorts": [80, 443, 8080, 8443]
+      }
+    ],
+    "secrets": ["WEBHOOK_TOKEN"]
+  },
+  "actions": [
+    {
+      "name": "health",
+      "description": "Checks whether the configured receiver is reachable.",
+      "idempotent": true,
+      "timeoutSeconds": 20
+    },
+    {
+      "name": "deliver",
+      "description": "Forwards one typed event to the configured receiver.",
+      "idempotent": true,
+      "timeoutSeconds": 30,
+      "inputSchema": "schemas/deliver.input.json"
+    }
+  ],
+  "contributions": [],
+  "configurationSchema": "configuration.schema.json",
+  "configurationUiSchema": "configuration.ui.json",
+  "translations": {
+    "de": "translations/de.json",
+    "en": "translations/en.json"
+  },
+  "health": { "action": "health", "timeoutSeconds": 20 }
+}

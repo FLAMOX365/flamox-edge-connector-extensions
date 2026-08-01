@@ -1,0 +1,4 @@
+{
+  "displayName": "REST & OData ERP Bridge",
+  "description": "Reads products and availability and submits orders through fixed customer-local REST or OData routes."
+}

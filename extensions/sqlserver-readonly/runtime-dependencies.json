@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "sdk": {
+    "repository": "https://github.com/FLAMOX365/flamox-edge-connector.git",
+    "commit": "8c9331be158244473ead8ccaf02fb55e242e8a81",
+    "path": "sdk/mod.ts"
+  },
+  "packages": [
+    {
+      "specifier": "npm:tedious@20.0.0",
+      "purpose": "Tabular Data Stream client for read-only Microsoft SQL Server access"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "capabilities": [
+    "data.hotfolder.read",
+    "data.hotfolder.write",
+    "data.hotfolder.archive"
+  ],
+  "network": ["nas.internal.example:443"],
+  "secrets": ["HOTFOLDER_USERNAME", "HOTFOLDER_PASSWORD"]
+}

@@ -1,0 +1,4 @@
+{
+  "displayName": "CSV/XML Hotfolder",
+  "description": "Exchanges bounded CSV and XML files through a customer-owned WebDAV hotfolder."
+}

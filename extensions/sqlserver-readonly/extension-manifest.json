@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schemas.flamox.com/edge-connector/extension-manifest/v2.json",
+  "schemaVersion": 2,
+  "id": "integration.sqlserver-readonly",
+  "displayName": "SQL Server Read-only",
+  "description": "Executes named, preconfigured read-only queries against one customer-local Microsoft SQL Server.",
+  "publisher": "FLAMOX365",
+  "version": "0.1.0",
+  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "capabilities": ["data.sqlserver.read"],
+  "permissions": {
+    "network": [],
+    "configuredNetwork": [
+      {
+        "configurationPointer": "/serverAddress",
+        "allowedPorts": [1433, 14330]
+      }
+    ],
+    "secrets": ["SQL_USERNAME", "SQL_PASSWORD"]
+  },
+  "actions": [
+    {
+      "name": "health",
+      "description": "Opens a read-only SQL Server connection and executes SELECT 1.",
+      "idempotent": true,
+      "timeoutSeconds": 30
+    },
+    {
+      "name": "query",
+      "description": "Executes one named query from the reviewed installation configuration.",
+      "idempotent": true,
+      "timeoutSeconds": 60,
+      "inputSchema": "schemas/query.input.json"
+    }
+  ],
+  "contributions": [],
+  "configurationSchema": "configuration.schema.json",
+  "configurationUiSchema": "configuration.ui.json",
+  "translations": {
+    "de": "translations/de.json",
+    "en": "translations/en.json"
+  },
+  "health": { "action": "health", "timeoutSeconds": 30 },
+  "notices": "THIRD_PARTY_NOTICES.md"
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "fields": {
+    "serverAddress": {
+      "label": "Server address",
+      "placeholder": "sqlserver.internal.example:1433",
+      "control": "text"
+    },
+    "database": {
+      "label": "Database",
+      "placeholder": "ERP",
+      "control": "text"
+    },
+    "encrypt": { "label": "Encrypt connection", "control": "checkbox" },
+    "trustServerCertificate": {
+      "label": "Trust server certificate",
+      "description": "Enable only for a reviewed customer-local certificate.",
+      "control": "checkbox"
+    },
+    "queriesJson": {
+      "label": "Named query definitions",
+      "description": "JSON object containing reviewed SELECT statements and parameter types.",
+      "control": "textarea"
+    },
+    "requestTimeoutSeconds": {
+      "label": "Query timeout in seconds",
+      "control": "number"
+    },
+    "maximumRows": { "label": "Maximum returned rows", "control": "number" },
+    "SQL_USERNAME": {
+      "label": "Read-only database user",
+      "control": "text",
+      "secret": true
+    },
+    "SQL_PASSWORD": {
+      "label": "Database password",
+      "control": "password",
+      "secret": true
+    }
+  },
+  "sections": [
+    {
+      "title": "SQL Server",
+      "fields": [
+        "serverAddress",
+        "database",
+        "encrypt",
+        "trustServerCertificate",
+        "requestTimeoutSeconds",
+        "maximumRows",
+        "SQL_USERNAME",
+        "SQL_PASSWORD"
+      ]
+    },
+    { "title": "Reviewed queries", "fields": ["queriesJson"] }
+  ]
+}

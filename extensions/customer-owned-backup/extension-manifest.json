@@ -1,0 +1,60 @@
+{
+  "$schema": "https://schemas.flamox.com/edge-connector/extension-manifest/v2.json",
+  "schemaVersion": 2,
+  "id": "integration.customer-owned-backup",
+  "displayName": "Customer-owned Backup",
+  "description": "Writes bounded export snapshots to one customer-owned WebDAV backup collection and applies configured retention.",
+  "publisher": "FLAMOX365",
+  "version": "0.1.0",
+  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "capabilities": [
+    "backup.snapshot.write",
+    "backup.snapshot.list",
+    "backup.snapshot.prune"
+  ],
+  "permissions": {
+    "network": [],
+    "configuredNetwork": [
+      {
+        "configurationPointer": "/baseUrl",
+        "allowedPorts": [80, 443, 8080, 8443]
+      }
+    ],
+    "secrets": ["BACKUP_USERNAME", "BACKUP_PASSWORD"]
+  },
+  "actions": [
+    {
+      "name": "health",
+      "description": "Checks the configured backup collection.",
+      "idempotent": true,
+      "timeoutSeconds": 20
+    },
+    {
+      "name": "create-backup",
+      "description": "Writes one immutable bounded export snapshot.",
+      "idempotent": true,
+      "timeoutSeconds": 60,
+      "inputSchema": "schemas/create-backup.input.json"
+    },
+    {
+      "name": "list-backups",
+      "description": "Lists snapshots created by this extension.",
+      "idempotent": true,
+      "timeoutSeconds": 30
+    },
+    {
+      "name": "prune-backups",
+      "description": "Deletes only older extension snapshots beyond configured retention.",
+      "idempotent": true,
+      "timeoutSeconds": 60
+    }
+  ],
+  "contributions": [],
+  "configurationSchema": "configuration.schema.json",
+  "configurationUiSchema": "configuration.ui.json",
+  "translations": {
+    "de": "translations/de.json",
+    "en": "translations/en.json"
+  },
+  "health": { "action": "health", "timeoutSeconds": 20 }
+}

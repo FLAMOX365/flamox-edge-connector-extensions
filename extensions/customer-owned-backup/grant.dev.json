@@ -1,0 +1,9 @@
+{
+  "capabilities": [
+    "backup.snapshot.write",
+    "backup.snapshot.list",
+    "backup.snapshot.prune"
+  ],
+  "network": ["backup.internal.example:443"],
+  "secrets": ["BACKUP_USERNAME", "BACKUP_PASSWORD"]
+}

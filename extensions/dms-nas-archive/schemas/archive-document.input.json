@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["documentId", "fileName", "contentType", "contentBase64"],
+  "properties": {
+    "documentId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+      "maxLength": 120
+    },
+    "fileName": {
+      "type": "string",
+      "pattern": "^[^/\\\\]+$",
+      "maxLength": 180
+    },
+    "contentType": {
+      "type": "string",
+      "enum": [
+        "application/json",
+        "application/pdf",
+        "application/xml",
+        "image/jpeg",
+        "image/png",
+        "text/csv",
+        "text/plain"
+      ]
+    },
+    "contentBase64": { "type": "string", "minLength": 1, "maxLength": 720000 }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "fields": {
+    "baseUrl": {
+      "label": "WebDAV base URL",
+      "placeholder": "https://dms.internal.example/archive",
+      "control": "text"
+    },
+    "archivePath": {
+      "label": "Archive path",
+      "placeholder": "documents",
+      "control": "text"
+    },
+    "requestTimeoutSeconds": {
+      "label": "Request timeout in seconds",
+      "control": "number"
+    },
+    "ARCHIVE_USERNAME": {
+      "label": "Archive user name",
+      "control": "text",
+      "secret": true
+    },
+    "ARCHIVE_PASSWORD": {
+      "label": "Archive password",
+      "control": "password",
+      "secret": true
+    }
+  },
+  "sections": [
+    {
+      "title": "Archive",
+      "fields": [
+        "baseUrl",
+        "archivePath",
+        "requestTimeoutSeconds",
+        "ARCHIVE_USERNAME",
+        "ARCHIVE_PASSWORD"
+      ]
+    }
+  ]
+}

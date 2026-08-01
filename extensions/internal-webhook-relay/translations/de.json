@@ -1,0 +1,4 @@
+{
+  "displayName": "Interne Webhook-Weiterleitung",
+  "description": "Leitet signierte Geschäftsvorfälle an genau einen lokalen HTTP-Endpunkt des Kunden weiter."
+}

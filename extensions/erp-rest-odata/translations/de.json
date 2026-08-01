@@ -1,0 +1,4 @@
+{
+  "displayName": "REST- & OData-ERP-Brücke",
+  "description": "Liest Produkte und Verfügbarkeiten und übermittelt Aufträge über fest konfigurierte lokale REST- oder OData-Routen."
+}

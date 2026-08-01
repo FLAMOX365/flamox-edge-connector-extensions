@@ -50,5 +50,8 @@ jobs:
       - name: Validate extension packages
         run: deno task validate
 
+      - name: Build extension packages
+        run: deno task build
+
       - name: Audit dependencies
         run: deno task audit

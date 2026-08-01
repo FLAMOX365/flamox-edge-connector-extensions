@@ -1,0 +1,5 @@
+{
+  "capabilities": ["documents.archive.write", "documents.archive.verify"],
+  "network": ["dms.internal.example:443"],
+  "secrets": ["ARCHIVE_USERNAME", "ARCHIVE_PASSWORD"]
+}

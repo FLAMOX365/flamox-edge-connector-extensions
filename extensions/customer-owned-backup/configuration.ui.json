@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "fields": {
+    "baseUrl": {
+      "label": "WebDAV base URL",
+      "placeholder": "https://backup.internal.example/edge",
+      "control": "text"
+    },
+    "backupPath": {
+      "label": "Backup path",
+      "placeholder": "backups",
+      "control": "text"
+    },
+    "filePrefix": {
+      "label": "File prefix",
+      "placeholder": "edge-backup",
+      "control": "text"
+    },
+    "retentionCount": { "label": "Snapshots to retain", "control": "number" },
+    "requestTimeoutSeconds": {
+      "label": "Request timeout in seconds",
+      "control": "number"
+    },
+    "BACKUP_USERNAME": {
+      "label": "Backup user name",
+      "control": "text",
+      "secret": true
+    },
+    "BACKUP_PASSWORD": {
+      "label": "Backup password",
+      "control": "password",
+      "secret": true
+    }
+  },
+  "sections": [
+    {
+      "title": "Customer-owned backup",
+      "fields": [
+        "baseUrl",
+        "backupPath",
+        "filePrefix",
+        "retentionCount",
+        "requestTimeoutSeconds",
+        "BACKUP_USERNAME",
+        "BACKUP_PASSWORD"
+      ]
+    }
+  ]
+}

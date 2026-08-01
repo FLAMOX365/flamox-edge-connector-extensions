@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schemas.flamox.com/edge-connector/extension-manifest/v2.json",
+  "schemaVersion": 2,
+  "id": "integration.customer-display",
+  "displayName": "Customer Display",
+  "description": "Shows bounded sales or service information on one customer-local showroom display receiver.",
+  "publisher": "FLAMOX365",
+  "version": "0.1.0",
+  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "capabilities": [
+    "display.presentation.write",
+    "display.presentation.clear",
+    "display.health.read"
+  ],
+  "permissions": {
+    "network": [],
+    "configuredNetwork": [
+      {
+        "configurationPointer": "/displayUrl",
+        "allowedPorts": [80, 443, 8080, 8443]
+      }
+    ],
+    "secrets": ["DISPLAY_TOKEN"]
+  },
+  "actions": [
+    {
+      "name": "health",
+      "description": "Checks the configured display receiver.",
+      "idempotent": true,
+      "timeoutSeconds": 15
+    },
+    {
+      "name": "show",
+      "description": "Replaces the current display presentation.",
+      "idempotent": true,
+      "timeoutSeconds": 20,
+      "inputSchema": "schemas/show.input.json"
+    },
+    {
+      "name": "clear",
+      "description": "Clears the current display presentation.",
+      "idempotent": true,
+      "timeoutSeconds": 15
+    }
+  ],
+  "contributions": [],
+  "configurationSchema": "configuration.schema.json",
+  "configurationUiSchema": "configuration.ui.json",
+  "translations": {
+    "de": "translations/de.json",
+    "en": "translations/en.json"
+  },
+  "health": { "action": "health", "timeoutSeconds": 15 }
+}

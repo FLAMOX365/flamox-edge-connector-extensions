@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event", "eventId", "occurredAt", "payload"],
+  "properties": {
+    "event": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)*$"
+    },
+    "eventId": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "payload": {}
+  }
+}

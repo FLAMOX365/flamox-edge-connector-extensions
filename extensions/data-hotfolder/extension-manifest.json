@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schemas.flamox.com/edge-connector/extension-manifest/v2.json",
+  "schemaVersion": 2,
+  "id": "integration.data-hotfolder",
+  "displayName": "CSV/XML Hotfolder",
+  "description": "Exchanges bounded CSV and XML files with a customer-owned WebDAV hotfolder.",
+  "publisher": "FLAMOX365",
+  "version": "0.1.0",
+  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "capabilities": [
+    "data.hotfolder.read",
+    "data.hotfolder.write",
+    "data.hotfolder.archive"
+  ],
+  "permissions": {
+    "network": [],
+    "configuredNetwork": [
+      {
+        "configurationPointer": "/baseUrl",
+        "allowedPorts": [80, 443, 8080, 8443]
+      }
+    ],
+    "secrets": ["HOTFOLDER_USERNAME", "HOTFOLDER_PASSWORD"]
+  },
+  "actions": [
+    {
+      "name": "health",
+      "description": "Checks the configured WebDAV collection.",
+      "idempotent": true,
+      "timeoutSeconds": 20
+    },
+    {
+      "name": "list-files",
+      "description": "Lists CSV and XML files waiting in the inbox.",
+      "idempotent": true,
+      "timeoutSeconds": 30
+    },
+    {
+      "name": "read-file",
+      "description": "Reads one bounded CSV or XML inbox file.",
+      "idempotent": true,
+      "timeoutSeconds": 30,
+      "inputSchema": "schemas/file.input.json"
+    },
+    {
+      "name": "write-file",
+      "description": "Writes one bounded CSV or XML file to the outbox.",
+      "idempotent": true,
+      "timeoutSeconds": 30,
+      "inputSchema": "schemas/write.input.json"
+    },
+    {
+      "name": "archive-file",
+      "description": "Moves one processed inbox file to the archive.",
+      "idempotent": true,
+      "timeoutSeconds": 30,
+      "inputSchema": "schemas/file.input.json"
+    }
+  ],
+  "contributions": [],
+  "configurationSchema": "configuration.schema.json",
+  "configurationUiSchema": "configuration.ui.json",
+  "translations": {
+    "de": "translations/de.json",
+    "en": "translations/en.json"
+  },
+  "health": { "action": "health", "timeoutSeconds": 20 }
+}

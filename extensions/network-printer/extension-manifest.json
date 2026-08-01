@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.flamox.com/edge-connector/extension-manifest/v2.json",
+  "schemaVersion": 2,
+  "id": "integration.network-printer",
+  "displayName": "Network Printer",
+  "description": "Prints bounded PDF, image or text jobs on one customer-local IPP printer.",
+  "publisher": "FLAMOX365",
+  "version": "0.1.0",
+  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "capabilities": ["documents.print", "printer.health.read"],
+  "permissions": {
+    "network": [],
+    "configuredNetwork": [
+      { "configurationPointer": "/printerUrl", "allowedPorts": [80, 443, 631] }
+    ],
+    "secrets": ["PRINTER_USERNAME", "PRINTER_PASSWORD"]
+  },
+  "actions": [
+    {
+      "name": "health",
+      "description": "Reads the configured printer state through IPP.",
+      "idempotent": true,
+      "timeoutSeconds": 20
+    },
+    {
+      "name": "print",
+      "description": "Submits one bounded document as an IPP Print-Job.",
+      "idempotent": false,
+      "timeoutSeconds": 60,
+      "inputSchema": "schemas/print.input.json"
+    }
+  ],
+  "contributions": [],
+  "configurationSchema": "configuration.schema.json",
+  "configurationUiSchema": "configuration.ui.json",
+  "translations": {
+    "de": "translations/de.json",
+    "en": "translations/en.json"
+  },
+  "health": { "action": "health", "timeoutSeconds": 20 }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SQL Server Read-only configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["serverAddress", "database", "queriesJson"],
+  "properties": {
+    "serverAddress": {
+      "type": "string",
+      "title": "Server address",
+      "pattern": "^(?:\\[[0-9A-Fa-f:]+\\]|[A-Za-z0-9.-]+):(?:1433|14330)$",
+      "maxLength": 300
+    },
+    "database": {
+      "type": "string",
+      "title": "Database",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "encrypt": {
+      "type": "boolean",
+      "title": "Encrypt connection",
+      "default": true
+    },
+    "trustServerCertificate": {
+      "type": "boolean",
+      "title": "Trust server certificate",
+      "default": false
+    },
+    "queriesJson": {
+      "type": "string",
+      "title": "Named query definitions",
+      "minLength": 2,
+      "maxLength": 50000
+    },
+    "requestTimeoutSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 90,
+      "default": 30
+    },
+    "maximumRows": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5000,
+      "default": 500
+    }
+  }
+}

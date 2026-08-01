@@ -1,0 +1,4 @@
+{
+  "displayName": "Customer-owned Backup",
+  "description": "Writes bounded export snapshots to a customer-owned WebDAV collection and applies configured retention."
+}

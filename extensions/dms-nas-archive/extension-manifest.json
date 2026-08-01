@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemas.flamox.com/edge-connector/extension-manifest/v2.json",
+  "schemaVersion": 2,
+  "id": "integration.dms-nas-archive",
+  "displayName": "DMS & NAS Archive",
+  "description": "Archives bounded business documents in one customer-owned WebDAV document collection.",
+  "publisher": "FLAMOX365",
+  "version": "0.1.0",
+  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "capabilities": ["documents.archive.write", "documents.archive.verify"],
+  "permissions": {
+    "network": [],
+    "configuredNetwork": [
+      {
+        "configurationPointer": "/baseUrl",
+        "allowedPorts": [80, 443, 8080, 8443]
+      }
+    ],
+    "secrets": ["ARCHIVE_USERNAME", "ARCHIVE_PASSWORD"]
+  },
+  "actions": [
+    {
+      "name": "health",
+      "description": "Checks the configured archive collection.",
+      "idempotent": true,
+      "timeoutSeconds": 20
+    },
+    {
+      "name": "archive-document",
+      "description": "Writes one bounded document under an immutable storage key.",
+      "idempotent": true,
+      "timeoutSeconds": 45,
+      "inputSchema": "schemas/archive-document.input.json"
+    },
+    {
+      "name": "verify-document",
+      "description": "Checks whether a previously returned storage key exists.",
+      "idempotent": true,
+      "timeoutSeconds": 20,
+      "inputSchema": "schemas/verify-document.input.json"
+    }
+  ],
+  "contributions": [],
+  "configurationSchema": "configuration.schema.json",
+  "configurationUiSchema": "configuration.ui.json",
+  "translations": {
+    "de": "translations/de.json",
+    "en": "translations/en.json"
+  },
+  "health": { "action": "health", "timeoutSeconds": 20 }
+}

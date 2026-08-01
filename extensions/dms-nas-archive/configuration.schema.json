@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DMS & NAS Archive configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["baseUrl", "archivePath"],
+  "properties": {
+    "baseUrl": {
+      "type": "string",
+      "title": "WebDAV base URL",
+      "pattern": "^https?://[^\\s]+$",
+      "maxLength": 500
+    },
+    "archivePath": {
+      "type": "string",
+      "title": "Archive path",
+      "minLength": 1,
+      "maxLength": 240,
+      "default": "documents"
+    },
+    "requestTimeoutSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 60,
+      "default": 30
+    }
+  }
+}
