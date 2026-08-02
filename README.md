@@ -73,6 +73,20 @@ deno task validate
 deno task build
 ```
 
+Every pushed commit runs this gate for every direct child of `extensions/` that
+contains both `extension-manifest.json` and `deno.json`. The workspace and the
+build inventory use directory patterns, so adding another complete extension
+does not require a CI or root-task change.
+
+After a successful run, open the corresponding
+[CI workflow run](https://github.com/FLAMOX365/flamox-edge-connector-extensions/actions/workflows/ci.yml)
+and download `edge-connector-extensions-<commit-sha>` from its **Artifacts**
+section. The archive is retained for 90 days and contains the compiled `dist`
+directory for every extension plus `extension-artifact-inventory.json` with the
+extension ids and versions. These CI artifacts are compiled review outputs;
+production `.fmx` bundles remain separately signed and published through the
+Extension CLI.
+
 Publisher private keys, FLAMOX365 Cloud credentials, generated `dist`
 directories, `.edge` state, and `.fmx` artifacts remain outside this repository.
 Each project also contains a `store-image.webp` generated from the shared visual
