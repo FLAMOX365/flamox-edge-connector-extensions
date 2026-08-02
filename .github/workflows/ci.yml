@@ -1,73 +1,70 @@
 name: CI
 
 on:
-  push:
-    branches: ["**"]
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
+    push:
+        branches: ["**"]
+    pull_request:
+        branches: [main]
+    workflow_dispatch:
 
 permissions:
-  contents: read
+    contents: read
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+    group: ci-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
-  verify:
-    name: Verify
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+    verify:
+        name: Verify
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
 
-    steps:
-      - name: Check out source and SDK
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-          submodules: recursive
+        steps:
+            - name: Check out source and SDK
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+                  submodules: recursive
 
-      - name: Set up Deno
-        uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
-        with:
-          deno-version: v2.9.4
+            - name: Set up Deno
+              uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+              with:
+                  deno-version: v2.9.4
 
-      - name: Install locked dependencies
-        run: deno install --frozen
+            - name: Install locked dependencies
+              run: deno install --frozen
 
-      - name: Check formatting
-        run: deno task fmt
+            - name: Check formatting
+              run: deno task fmt
 
-      - name: Lint
-        run: deno task lint
+            - name: Lint
+              run: deno task lint
 
-      - name: Type-check
-        run: deno task check
+            - name: Type-check
+              run: deno task check
 
-      - name: Test
-        run: deno task test
+            - name: Test
+              run: deno task test
 
-      - name: Validate extension packages
-        run: deno task validate
+            - name: Validate extension packages
+              run: deno task validate
 
-      - name: Build extension packages
-        run: deno task build
+            - name: Audit dependencies
+              run: deno task audit
 
-      - name: Audit dependencies
-        run: deno task audit
+            - name: Build extension packages
+              run: deno task build
 
-      - name: Build extension packages
-        run: deno task build
+            - name: Record compiled extension inventory
+              run: deno task extensions -- inventory > extension-artifact-inventory.json
 
-      - name: Record compiled extension inventory
-        run: deno task extensions -- inventory > extension-artifact-inventory.json
-
-      - name: Upload compiled extension artifacts
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: edge-connector-extensions-${{ github.sha }}
-          path: |
-            extension-artifact-inventory.json
-            extensions/*/dist/
-          if-no-files-found: error
-          retention-days: 90
+            - name: Upload compiled extension artifacts
+              uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+              with:
+                  name: edge-connector-extensions-${{ github.sha }}
+                  path: |
+                      extension-artifact-inventory.json
+                      extensions/*/dist/
+                  if-no-files-found: error
+                  retention-days: 90
