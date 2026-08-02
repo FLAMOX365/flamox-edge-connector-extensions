@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "fields": {
+    "baseUrl": {
+      "label": "ERP base URL",
+      "placeholder": "https://erp.internal.example",
+      "control": "text"
+    },
+    "productsPath": {
+      "label": "Products route",
+      "placeholder": "odata/Products",
+      "control": "text"
+    },
+    "availabilityPath": {
+      "label": "Availability route",
+      "placeholder": "api/availability",
+      "control": "text"
+    },
+    "ordersPath": {
+      "label": "Orders route",
+      "placeholder": "api/orders",
+      "control": "text"
+    },
+    "requestTimeoutSeconds": {
+      "label": "Request timeout in seconds",
+      "control": "number"
+    },
+    "ERP_API_TOKEN": {
+      "label": "API token",
+      "control": "password",
+      "secret": true
+    }
+  },
+  "sections": [
+    {
+      "title": "ERP routes",
+      "fields": [
+        "baseUrl",
+        "productsPath",
+        "availabilityPath",
+        "ordersPath",
+        "requestTimeoutSeconds",
+        "ERP_API_TOKEN"
+      ]
+    }
+  ]
+}

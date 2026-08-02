@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "fields": {
+    "printerUrl": {
+      "label": "IPP printer URL",
+      "placeholder": "http://printer.internal.example:631/ipp/print",
+      "control": "text"
+    },
+    "requestingUserName": {
+      "label": "Print job user name",
+      "placeholder": "FLAMOX365",
+      "control": "text"
+    },
+    "requestTimeoutSeconds": {
+      "label": "Request timeout in seconds",
+      "control": "number"
+    },
+    "PRINTER_USERNAME": {
+      "label": "Printer user name",
+      "control": "text",
+      "secret": true
+    },
+    "PRINTER_PASSWORD": {
+      "label": "Printer password",
+      "control": "password",
+      "secret": true
+    }
+  },
+  "sections": [
+    {
+      "title": "Printer",
+      "fields": [
+        "printerUrl",
+        "requestingUserName",
+        "requestTimeoutSeconds",
+        "PRINTER_USERNAME",
+        "PRINTER_PASSWORD"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Network Printer configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["printerUrl"],
+  "properties": {
+    "printerUrl": {
+      "type": "string",
+      "title": "IPP printer URL",
+      "pattern": "^https?://[^\\s]+$",
+      "maxLength": 500
+    },
+    "requestingUserName": {
+      "type": "string",
+      "title": "Print job user name",
+      "minLength": 1,
+      "maxLength": 120,
+      "default": "FLAMOX365"
+    },
+    "requestTimeoutSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 90,
+      "default": 30
+    }
+  }
+}

@@ -10,6 +10,7 @@ Describe the observable extension change and affected integration outcome.
 - [ ] `deno task fmt`
 - [ ] `deno task audit`
 - [ ] `deno task validate`
+- [ ] `deno task build`
 - [ ] Manifest, schemas, translations, examples, runtime dependency records, and
       documentation match the behavior.
 - [ ] Capabilities, network targets, and secret names are the smallest possible

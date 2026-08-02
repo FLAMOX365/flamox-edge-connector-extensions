@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: ["**"]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -52,3 +52,19 @@ jobs:
 
       - name: Audit dependencies
         run: deno task audit
+
+      - name: Build extension packages
+        run: deno task build
+
+      - name: Record compiled extension inventory
+        run: deno task extensions -- inventory > extension-artifact-inventory.json
+
+      - name: Upload compiled extension artifacts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: edge-connector-extensions-${{ github.sha }}
+          path: |
+            extension-artifact-inventory.json
+            extensions/*/dist/
+          if-no-files-found: error
+          retention-days: 90

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["exportId", "createdAt", "contentType", "contentBase64"],
+  "properties": {
+    "exportId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+      "maxLength": 120
+    },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "contentType": {
+      "type": "string",
+      "enum": ["application/json", "application/zip"]
+    },
+    "contentBase64": { "type": "string", "minLength": 1, "maxLength": 720000 }
+  }
+}

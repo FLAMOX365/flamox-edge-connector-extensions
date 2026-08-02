@@ -1,0 +1,4 @@
+{
+  "displayName": "Network Printer",
+  "description": "Prints bounded PDF, image or text jobs on exactly one customer-local IPP printer."
+}

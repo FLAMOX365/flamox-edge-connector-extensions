@@ -1,0 +1,4 @@
+{
+  "displayName": "Internal Webhook Relay",
+  "description": "Forwards signed business events to exactly one customer-local HTTP endpoint."
+}

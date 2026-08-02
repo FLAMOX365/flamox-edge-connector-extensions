@@ -2,17 +2,20 @@
   "lock": {
     "frozen": true
   },
-  "workspace": [
-    "./extensions/hello-world",
-    "./extensions/telephony-fritzbox"
-  ],
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1.0.19",
+    "@std/path": "jsr:@std/path@1.1.6"
+  },
+  "workspace": ["./extensions/*"],
   "tasks": {
     "audit": "deno audit --frozen",
-    "check": "deno task --cwd extensions/hello-world check && deno task --cwd extensions/telephony-fritzbox check",
+    "build": "deno task extensions -- build",
+    "check": "deno task extensions -- check",
     "extension": "deno run --unstable-worker-options --allow-env --allow-net --allow-read --allow-write --allow-run=deno,osascript,powershell.exe,pwsh,zenity,kdialog dependencies/edge-connector/cli/main.ts",
-    "test": "deno task --cwd extensions/hello-world test && deno task --cwd extensions/telephony-fritzbox test",
-    "fmt": "deno fmt --check README.md CONTRIBUTING.md CODE_OF_CONDUCT.md SECURITY.md SUPPORT.md deno.json .github extensions",
-    "lint": "deno lint extensions",
-    "validate": "deno task extension -- validate extensions/hello-world && deno task extension -- validate extensions/telephony-fritzbox"
+    "extensions": "deno run --allow-read=extensions --allow-run=deno scripts/extensions.ts",
+    "fmt": "deno fmt --check README.md STORE_IMAGE_PROMPT.md CONTRIBUTING.md CODE_OF_CONDUCT.md SECURITY.md SUPPORT.md deno.json .github extensions scripts shared",
+    "lint": "deno lint extensions scripts shared",
+    "test": "deno test --allow-read --allow-write scripts/extensions.spec.ts && deno task extensions -- test",
+    "validate": "deno task extensions -- validate"
   }
 }

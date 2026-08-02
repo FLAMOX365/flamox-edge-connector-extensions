@@ -1,0 +1,5 @@
+{
+  "capabilities": ["documents.print", "printer.health.read"],
+  "network": ["printer.internal.example:631"],
+  "secrets": ["PRINTER_USERNAME", "PRINTER_PASSWORD"]
+}

@@ -1,0 +1,9 @@
+{
+  "capabilities": [
+    "erp.products.read",
+    "erp.availability.read",
+    "erp.orders.write"
+  ],
+  "network": ["erp.internal.example:443"],
+  "secrets": ["ERP_API_TOKEN"]
+}

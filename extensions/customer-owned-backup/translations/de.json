@@ -1,0 +1,4 @@
+{
+  "displayName": "Kundeneigenes Backup",
+  "description": "Schreibt begrenzte Export-Snapshots in eine kundeneigene WebDAV-Sammlung und wendet die konfigurierte Aufbewahrung an."
+}

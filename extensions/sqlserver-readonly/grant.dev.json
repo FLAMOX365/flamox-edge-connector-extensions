@@ -1,0 +1,5 @@
+{
+  "capabilities": ["data.sqlserver.read"],
+  "network": ["sqlserver.internal.example:1433"],
+  "secrets": ["SQL_USERNAME", "SQL_PASSWORD"]
+}

@@ -1,0 +1,4 @@
+{
+  "displayName": "SQL Server – schreibgeschützt",
+  "description": "Führt benannte, vorab konfigurierte Leseabfragen gegen genau einen lokalen Microsoft SQL Server aus."
+}

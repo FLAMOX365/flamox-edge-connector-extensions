@@ -1,0 +1,9 @@
+{
+  "capabilities": [
+    "display.presentation.write",
+    "display.presentation.clear",
+    "display.health.read"
+  ],
+  "network": ["display.internal.example:443"],
+  "secrets": ["DISPLAY_TOKEN"]
+}

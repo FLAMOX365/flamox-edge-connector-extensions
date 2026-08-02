@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Internal Webhook Relay configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["endpointUrl"],
+  "properties": {
+    "endpointUrl": {
+      "type": "string",
+      "title": "Receiver URL",
+      "pattern": "^https?://[^\\s]+$",
+      "maxLength": 500
+    },
+    "requestTimeoutSeconds": {
+      "type": "integer",
+      "title": "Request timeout in seconds",
+      "minimum": 1,
+      "maximum": 60,
+      "default": 15
+    }
+  }
+}

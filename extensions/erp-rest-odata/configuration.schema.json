@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "REST & OData ERP Bridge configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["baseUrl", "productsPath", "availabilityPath", "ordersPath"],
+  "properties": {
+    "baseUrl": {
+      "type": "string",
+      "title": "ERP base URL",
+      "pattern": "^https?://[^\\s]+$",
+      "maxLength": 500
+    },
+    "productsPath": {
+      "type": "string",
+      "title": "Products route",
+      "minLength": 1,
+      "maxLength": 240,
+      "default": "api/products"
+    },
+    "availabilityPath": {
+      "type": "string",
+      "title": "Availability route",
+      "minLength": 1,
+      "maxLength": 240,
+      "default": "api/availability"
+    },
+    "ordersPath": {
+      "type": "string",
+      "title": "Orders route",
+      "minLength": 1,
+      "maxLength": 240,
+      "default": "api/orders"
+    },
+    "requestTimeoutSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 90,
+      "default": 30
+    }
+  }
+}

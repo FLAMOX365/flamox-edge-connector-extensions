@@ -1,0 +1,62 @@
+{
+  "$schema": "https://schemas.flamox.com/edge-connector/extension-manifest/v2.json",
+  "schemaVersion": 2,
+  "id": "integration.erp-rest-odata",
+  "displayName": "REST & OData ERP Bridge",
+  "description": "Reads products and availability and submits orders through fixed customer-local REST or OData routes.",
+  "publisher": "FLAMOX365",
+  "version": "0.1.0",
+  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "capabilities": [
+    "erp.products.read",
+    "erp.availability.read",
+    "erp.orders.write"
+  ],
+  "permissions": {
+    "network": [],
+    "configuredNetwork": [
+      {
+        "configurationPointer": "/baseUrl",
+        "allowedPorts": [80, 443, 8080, 8443]
+      }
+    ],
+    "secrets": ["ERP_API_TOKEN"]
+  },
+  "actions": [
+    {
+      "name": "health",
+      "description": "Checks the configured ERP base route.",
+      "idempotent": true,
+      "timeoutSeconds": 20
+    },
+    {
+      "name": "list-products",
+      "description": "Reads a bounded product page from the configured product route.",
+      "idempotent": true,
+      "timeoutSeconds": 45,
+      "inputSchema": "schemas/list-products.input.json"
+    },
+    {
+      "name": "get-availability",
+      "description": "Reads availability for one SKU from the configured route.",
+      "idempotent": true,
+      "timeoutSeconds": 30,
+      "inputSchema": "schemas/get-availability.input.json"
+    },
+    {
+      "name": "submit-order",
+      "description": "Submits one order to the configured order route.",
+      "idempotent": true,
+      "timeoutSeconds": 60,
+      "inputSchema": "schemas/submit-order.input.json"
+    }
+  ],
+  "contributions": [],
+  "configurationSchema": "configuration.schema.json",
+  "configurationUiSchema": "configuration.ui.json",
+  "translations": {
+    "de": "translations/de.json",
+    "en": "translations/en.json"
+  },
+  "health": { "action": "health", "timeoutSeconds": 20 }
+}

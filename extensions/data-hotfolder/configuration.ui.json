@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "fields": {
+    "baseUrl": {
+      "label": "WebDAV base URL",
+      "placeholder": "https://nas.internal.example/hotfolder",
+      "control": "text"
+    },
+    "inboxPath": {
+      "label": "Inbox path",
+      "placeholder": "inbox",
+      "control": "text"
+    },
+    "outboxPath": {
+      "label": "Outbox path",
+      "placeholder": "outbox",
+      "control": "text"
+    },
+    "archivePath": {
+      "label": "Archive path",
+      "placeholder": "archive",
+      "control": "text"
+    },
+    "requestTimeoutSeconds": {
+      "label": "Request timeout in seconds",
+      "control": "number"
+    },
+    "HOTFOLDER_USERNAME": {
+      "label": "WebDAV user name",
+      "control": "text",
+      "secret": true
+    },
+    "HOTFOLDER_PASSWORD": {
+      "label": "WebDAV password",
+      "control": "password",
+      "secret": true
+    }
+  },
+  "sections": [
+    {
+      "title": "Hotfolder",
+      "fields": [
+        "baseUrl",
+        "inboxPath",
+        "outboxPath",
+        "archivePath",
+        "requestTimeoutSeconds",
+        "HOTFOLDER_USERNAME",
+        "HOTFOLDER_PASSWORD"
+      ]
+    }
+  ]
+}

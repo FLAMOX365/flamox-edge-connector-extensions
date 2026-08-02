@@ -1,0 +1,5 @@
+{
+  "capabilities": ["integration.webhook.forward"],
+  "network": ["events.internal.example:443"],
+  "secrets": ["WEBHOOK_TOKEN"]
+}

@@ -1,0 +1,4 @@
+{
+  "displayName": "SQL Server Read-only",
+  "description": "Executes named, preconfigured read-only queries against exactly one customer-local Microsoft SQL Server."
+}
