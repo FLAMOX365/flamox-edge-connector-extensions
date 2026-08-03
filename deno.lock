@@ -1,32 +1,20 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@std/assert@1": "1.0.19",
     "jsr:@std/assert@1.0.19": "1.0.19",
-    "jsr:@std/fs@1": "1.0.24",
     "jsr:@std/internal@^1.0.12": "1.0.14",
     "jsr:@std/internal@^1.0.14": "1.0.14",
-    "jsr:@std/path@1": "1.1.6",
     "jsr:@std/path@1.1.6": "1.1.6",
-    "jsr:@std/path@^1.1.5": "1.1.6",
     "jsr:@std/xml@0.1.3": "0.1.3",
     "jsr:@std/yaml@1": "1.1.2",
     "npm:@noble/hashes@2.2.0": "2.2.0",
-    "npm:ajv@8.20.0": "8.20.0",
-    "npm:tedious@20.0.0": "20.0.0"
+    "npm:tedious@20.0.5": "20.0.5"
   },
   "jsr": {
     "@std/assert@1.0.19": {
       "integrity": "eaada96ee120cb980bc47e040f82814d786fe8162ecc53c91d8df60b8755991e",
       "dependencies": [
         "jsr:@std/internal@^1.0.12"
-      ]
-    },
-    "@std/fs@1.0.24": {
-      "integrity": "f3061b45b81673a2bece689da041df32d174be064c89eb6397fb5718d3fb7877",
-      "dependencies": [
-        "jsr:@std/internal@^1.0.14",
-        "jsr:@std/path@^1.1.5"
       ]
     },
     "@std/internal@1.0.14": {
@@ -227,15 +215,6 @@
     "agent-base@7.1.4": {
       "integrity": "sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ=="
     },
-    "ajv@8.20.0": {
-      "integrity": "sha512-Thbli+OlOj+iMPYFBVBfJ3OmCAnaSyNn4M1vz9T6Gka5Jt9ba/HIR56joy65tY6kx/FCF5VXNB819Y7/GUrBGA==",
-      "dependencies": [
-        "fast-deep-equal",
-        "fast-uri",
-        "json-schema-traverse",
-        "require-from-string"
-      ]
-    },
     "base64-js@1.5.1": {
       "integrity": "sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA=="
     },
@@ -295,12 +274,6 @@
     "events@3.3.0": {
       "integrity": "sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q=="
     },
-    "fast-deep-equal@3.1.3": {
-      "integrity": "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q=="
-    },
-    "fast-uri@3.1.4": {
-      "integrity": "sha512-8JnbkQ4juDyvYs4mgFGQqg4yCYtFDtUtmp2QIQq11ZZe5CFQ5wcqm1rqDgAh/QdMySuBnPzMUiJUNZG5N/AiQw=="
-    },
     "http-proxy-agent@7.0.2": {
       "integrity": "sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==",
       "dependencies": [
@@ -346,9 +319,6 @@
     },
     "js-md4@0.3.2": {
       "integrity": "sha512-/GDnfQYsltsjRswQhN9fhv3EMw2sCpUdrdxyWDOUK7eyD++r3gRhzgiQgc/x4MAv2i1iuQ4lxO5mvqM3vj4bwA=="
-    },
-    "json-schema-traverse@1.0.0": {
-      "integrity": "sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug=="
     },
     "jsonwebtoken@9.0.3": {
       "integrity": "sha512-MT/xP0CrubFRNLNKvxJ2BYfy53Zkm++5bX9dtuPbqAeQpTVe0MQTFhao8+Cp//EmJp244xt6Drw/GVEGCUj40g==",
@@ -429,9 +399,6 @@
         "string_decoder"
       ]
     },
-    "require-from-string@2.0.2": {
-      "integrity": "sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw=="
-    },
     "run-applescript@7.1.0": {
       "integrity": "sha512-DPe5pVFaAsinSaV6QjQ6gdiedWDcRCbUuiQfQa2wmWV7+xC9bGulGI8+TdRmoFkAPaBXk8CrAbnlY2ISniJ47Q=="
     },
@@ -454,8 +421,8 @@
         "safe-buffer"
       ]
     },
-    "tedious@20.0.0": {
-      "integrity": "sha512-bTR0aou0Ghucf0ytvZUJjnKHGKDV8tT57jPYtEkSpfTWFe++4uR1wxJLQ4mh5wlSvAYXzmgBxbI0vaE56qigXw==",
+    "tedious@20.0.5": {
+      "integrity": "sha512-OUkbPGwB/RFNS3dEsy3C5sBP8q4LSe7VJ3sYR1RTPU7asmitn+YpK4Y95dvTL+2Bb8lJacdAXlBnXxB+hw7ueQ==",
       "dependencies": [
         "@azure/core-auth",
         "@azure/identity",
@@ -531,7 +498,7 @@
       "extensions/sqlserver-readonly": {
         "dependencies": [
           "jsr:@std/assert@1.0.19",
-          "npm:tedious@20.0.0"
+          "npm:tedious@20.0.5"
         ]
       },
       "extensions/telephony-fritzbox": {
@@ -539,27 +506,6 @@
           "jsr:@std/assert@1.0.19",
           "jsr:@std/xml@0.1.3",
           "npm:@noble/hashes@2.2.0"
-        ]
-      }
-    },
-    "links": {
-      "jsr:@edge/extension-cli@0.1.0": {
-        "dependencies": [
-          "jsr:@std/assert@1",
-          "jsr:@std/fs@1",
-          "jsr:@std/path@1",
-          "npm:ajv@8.20.0"
-        ]
-      },
-      "jsr:@flamox/edge-connector-desktop@0.1.0": {
-        "dependencies": [
-          "jsr:@std/assert@1",
-          "jsr:@std/path@1"
-        ]
-      },
-      "jsr:@flamox/edge-connector-sdk@2.0.0": {
-        "dependencies": [
-          "jsr:@std/assert@1"
         ]
       }
     }
