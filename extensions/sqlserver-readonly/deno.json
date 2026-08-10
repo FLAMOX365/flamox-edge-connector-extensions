@@ -6,6 +6,6 @@
   "imports": {
     "@edge-connector/sdk": "../../dependencies/edge-connector/sdk/mod.ts",
     "@std/assert": "jsr:@std/assert@1.0.19",
-    "tedious": "npm:tedious@20.0.0"
+    "tedious": "npm:tedious@20.0.5"
   }
 }
