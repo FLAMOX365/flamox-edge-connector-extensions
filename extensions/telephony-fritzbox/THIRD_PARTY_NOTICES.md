@@ -95,9 +95,9 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-## `@noble/hashes` 2.2.0
+## `@noble/hashes` 2.4.0
 
-Source: <https://github.com/paulmillr/noble-hashes/tree/2.2.0>
+Source: <https://github.com/paulmillr/noble-hashes/tree/2.4.0>
 
 The MIT License (MIT)
 

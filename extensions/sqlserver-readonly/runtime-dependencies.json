@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "sdk": {
     "repository": "https://github.com/FLAMOX365/flamox-edge-connector.git",
-    "commit": "65c8a1456bf04ac00f6c71073b3bd3a75250f1e4",
+    "commit": "3a10a8d8d568cf72a0c7948fb3dfcab079566b86",
     "path": "sdk/package.json"
   },
   "packages": [
