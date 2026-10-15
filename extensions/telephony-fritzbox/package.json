@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk",
-    "@noble/hashes": "2.2.0",
+    "@noble/hashes": "2.4.0",
     "saxes": "^6.0.0"
   },
   "devDependencies": {
