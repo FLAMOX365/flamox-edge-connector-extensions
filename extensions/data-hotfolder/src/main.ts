@@ -21,9 +21,10 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
         } catch (error) {
           return {
             healthy: false,
-            message: error instanceof Error
-              ? error.message
-              : "Hotfolder is unavailable.",
+            message:
+              error instanceof Error
+                ? error.message
+                : "Hotfolder is unavailable.",
           };
         }
       },
@@ -31,8 +32,8 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
         const { client, inboxPath } = clientFrom(context, fetcher);
         const entries = await client.list(inboxPath);
         return {
-          files: entries.filter((entry) =>
-            !entry.collection && /\.(?:csv|xml)$/iu.test(entry.name)
+          files: entries.filter(
+            (entry) => !entry.collection && /\.(?:csv|xml)$/iu.test(entry.name),
           ),
         };
       },
@@ -105,13 +106,14 @@ function clientFrom(
       baseUrl: urlValue(configuration.baseUrl, "Configuration baseUrl"),
       username: context.secrets.HOTFOLDER_USERNAME ?? "",
       password: context.secrets.HOTFOLDER_PASSWORD ?? "",
-      timeoutMilliseconds: integerValue(
-        configuration.requestTimeoutSeconds,
-        "Configuration requestTimeoutSeconds",
-        20,
-        1,
-        60,
-      ) * 1_000,
+      timeoutMilliseconds:
+        integerValue(
+          configuration.requestTimeoutSeconds,
+          "Configuration requestTimeoutSeconds",
+          20,
+          1,
+          60,
+        ) * 1_000,
       fetcher,
     }),
   };

@@ -1,4 +1,9 @@
-import { assertEquals, assertRejects, assertStringIncludes } from "@std/assert";
+import { test } from "node:test";
+import {
+  assertEquals,
+  assertRejects,
+  assertStringIncludes,
+} from "../../../scripts/assert.ts";
 import type {
   ExtensionActionContext,
   JsonValue,
@@ -44,18 +49,21 @@ class DeviceMock {
       return Promise.resolve(xmlResponse(discovery));
     }
     if (url.includes("/calllist.lua")) {
-      return Promise.resolve(xmlResponse(`<root>
+      return Promise.resolve(
+        xmlResponse(`<root>
         <timestamp>101</timestamp>
         <Call>
           <Id>7</Id><Type>1</Type><Caller>030123</Caller>
           <CalledNumber>4930555</CalledNumber>
           <Date>31.07.24 12:03</Date><Duration>0:02</Duration>
         </Call>
-      </root>`));
+      </root>`),
+      );
     }
     if (body.includes("<h:InitChallenge")) {
-      return Promise.resolve(xmlResponse(
-        `<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"
+      return Promise.resolve(
+        xmlResponse(
+          `<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"
           xmlns:h="http://soap-authentication.org/digest/2001/10/">
         <s:Header><h:Challenge>
         <Status>Unauthenticated</Status>
@@ -63,32 +71,33 @@ class DeviceMock {
       </h:Challenge></s:Header><s:Body>
         <errorCode>503</errorCode><errorDescription>Auth. failed</errorDescription>
       </s:Body></s:Envelope>`,
-        500,
-      ));
+          500,
+        ),
+      );
     }
     if (!body.includes("<h:ClientAuth")) {
-      return Promise.resolve(
-        xmlResponse("<errorCode>401</errorCode>", 500),
-      );
+      return Promise.resolve(xmlResponse("<errorCode>401</errorCode>", 500));
     }
 
     const actionResponse = body.includes("<u:X_AVM-DE_DialGetConfig")
       ? "<NewX_AVM-DE_PhoneName>Sales desk</NewX_AVM-DE_PhoneName>"
       : body.includes("<u:GetCallList")
-      ? "<NewCallListURL>http://untrusted.invalid:49000/calllist.lua?sid=abc&amp;foo=bar</NewCallListURL>"
-      : "";
+        ? "<NewCallListURL>http://untrusted.invalid:49000/calllist.lua?sid=abc&amp;foo=bar</NewCallListURL>"
+        : "";
     this.nonce++;
-    return Promise.resolve(xmlResponse(`<s:Envelope
+    return Promise.resolve(
+      xmlResponse(`<s:Envelope
       xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"
       xmlns:h="http://soap-authentication.org/digest/2001/10/">
     <s:Header><h:NextChallenge>
       <Status>Authenticated</Status>
       <Nonce>NONCE-${this.nonce}</Nonce><Realm>F!Box SOAP-Auth</Realm>
-    </h:NextChallenge></s:Header><s:Body>${actionResponse}</s:Body></s:Envelope>`));
+    </h:NextChallenge></s:Header><s:Body>${actionResponse}</s:Body></s:Envelope>`),
+    );
   };
 }
 
-Deno.test("dial configures the device and starts a normalized number", async () => {
+test("dial configures the device and starts a normalized number", async () => {
   const device = new DeviceMock();
   const extension = createExtension(device.fetch, fixedClock);
   const result = await extension.actions.dial(
@@ -114,7 +123,7 @@ Deno.test("dial configures the device and starts a normalized number", async () 
   );
 });
 
-Deno.test("hangup returns the canonical telephony result", async () => {
+test("hangup returns the canonical telephony result", async () => {
   const device = new DeviceMock();
   const extension = createExtension(device.fetch, fixedClock);
   const result = await extension.actions.hangup(context(), {
@@ -129,7 +138,7 @@ Deno.test("hangup returns the canonical telephony result", async () => {
   });
 });
 
-Deno.test("health verifies both services and credentials", async () => {
+test("health verifies both services and credentials", async () => {
   const device = new DeviceMock();
   const extension = createExtension(device.fetch);
   const result = await extension.actions.health(context(), null);
@@ -149,19 +158,16 @@ Deno.test("health verifies both services and credentials", async () => {
   });
 });
 
-Deno.test("call history is downloaded only from the configured network target", async () => {
+test("call history is downloaded only from the configured network target", async () => {
   const device = new DeviceMock();
   const extension = createExtension(device.fetch);
-  const result = await extension.actions["list-calls"](
-    context(),
-    {
-      cursor: { latestCallId: "6", timestamp: "100" },
-      maximumRecords: 25,
-    },
-  );
+  const result = await extension.actions["list-calls"](context(), {
+    cursor: { latestCallId: "6", timestamp: "100" },
+    maximumRecords: 25,
+  });
 
   const callListRequest = device.requests.find((request) =>
-    request.url.includes("/calllist.lua")
+    request.url.includes("/calllist.lua"),
   );
   const target = new URL(callListRequest!.url);
   assertEquals(target.origin, "http://fritz.box:49000");
@@ -171,7 +177,9 @@ Deno.test("call history is downloaded only from the configured network target", 
   assertEquals(target.searchParams.get("id"), "6");
   assertEquals(target.searchParams.get("timestamp"), "100");
   assertEquals(
-    typeof result === "object" && result !== null && !Array.isArray(result) &&
+    typeof result === "object" &&
+      result !== null &&
+      !Array.isArray(result) &&
       Array.isArray(result.calls)
       ? result.calls.length
       : null,
@@ -179,15 +187,12 @@ Deno.test("call history is downloaded only from the configured network target", 
   );
 });
 
-Deno.test("dial rejects unsupported input before contacting the device", async () => {
+test("dial rejects unsupported input before contacting the device", async () => {
   const device = new DeviceMock();
   const extension = createExtension(device.fetch);
   await assertRejects(
     async () =>
-      await extension.actions.dial(
-        context(),
-        startCallInput("030;shutdown"),
-      ),
+      await extension.actions.dial(context(), startCallInput("030;shutdown")),
     Error,
     "unsupported characters",
   );

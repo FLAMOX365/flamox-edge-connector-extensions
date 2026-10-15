@@ -114,9 +114,10 @@ export function createExtension(
         } catch (error) {
           return {
             healthy: false,
-            message: error instanceof Error
-              ? error.message
-              : "FRITZ!Box health check failed.",
+            message:
+              error instanceof Error
+                ? error.message
+                : "FRITZ!Box health check failed.",
           };
         }
       },
@@ -145,8 +146,8 @@ export default createExtension();
 
 async function requiredDescription(client: Tr064Client) {
   const description = await client.describe();
-  const missing = [VOIP_SERVICE, CONTACT_SERVICE].filter((service) =>
-    !description.services.has(service)
+  const missing = [VOIP_SERVICE, CONTACT_SERVICE].filter(
+    (service) => !description.services.has(service),
   );
   if (missing.length > 0) {
     throw new Error(
@@ -167,10 +168,7 @@ async function configureDialingDevice(
       "NewX_AVM-DE_PhoneName": requestedName,
     });
   }
-  const response = await client.invoke(
-    VOIP_SERVICE,
-    "X_AVM-DE_DialGetConfig",
-  );
+  const response = await client.invoke(VOIP_SERVICE, "X_AVM-DE_DialGetConfig");
   return nullable(elementText(response, "NewX_AVM-DE_PhoneName"));
 }
 
@@ -219,9 +217,10 @@ function parseConfiguration(
       cause: error,
     });
   }
-  const phoneName = value.phoneName === undefined
-    ? null
-    : stringValue(value.phoneName, "Configuration phoneName");
+  const phoneName =
+    value.phoneName === undefined
+      ? null
+      : stringValue(value.phoneName, "Configuration phoneName");
   return {
     baseUrl,
     phoneName,
@@ -240,13 +239,14 @@ function parseConfiguration(
       1,
       999,
     ),
-    requestTimeoutMilliseconds: integerValue(
-      value.requestTimeoutSeconds,
-      "Configuration requestTimeoutSeconds",
-      15,
-      1,
-      60,
-    ) * 1_000,
+    requestTimeoutMilliseconds:
+      integerValue(
+        value.requestTimeoutSeconds,
+        "Configuration requestTimeoutSeconds",
+        15,
+        1,
+        60,
+      ) * 1_000,
   };
 }
 
@@ -363,8 +363,10 @@ function integerValue(
 ): number {
   if (value === undefined && fallback !== undefined) return fallback;
   if (
-    typeof value !== "number" || !Number.isSafeInteger(value) ||
-    value < minimum || value > maximum
+    typeof value !== "number" ||
+    !Number.isSafeInteger(value) ||
+    value < minimum ||
+    value > maximum
   ) {
     throw new Error(
       `${label} must be an integer between ${minimum} and ${maximum}.`,

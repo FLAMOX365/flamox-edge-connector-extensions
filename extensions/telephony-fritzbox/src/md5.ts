@@ -1,4 +1,4 @@
-import { md5 as digest } from "@noble/hashes/legacy";
+import { md5 as digest } from "@noble/hashes/legacy.js";
 
 export function md5(value: string): string {
   return [...digest(new TextEncoder().encode(value))]

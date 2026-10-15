@@ -1,0 +1,21 @@
+{
+  "name": "@edge-extensions/customer-display",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=26.0.0 <27"
+  },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "node --import tsx --test src/*.spec.ts"
+  },
+  "dependencies": {
+    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "7.0.2"
+  }
+}

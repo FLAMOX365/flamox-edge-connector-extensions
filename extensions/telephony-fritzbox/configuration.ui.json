@@ -43,11 +43,7 @@
   "sections": [
     {
       "title": "Connection",
-      "fields": [
-        "baseUrl",
-        "DEVICE_USERNAME",
-        "DEVICE_PASSWORD"
-      ]
+      "fields": ["baseUrl", "DEVICE_USERNAME", "DEVICE_PASSWORD"]
     },
     {
       "title": "Telephony",

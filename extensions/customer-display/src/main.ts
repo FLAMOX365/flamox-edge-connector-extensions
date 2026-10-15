@@ -35,9 +35,10 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
           return {
             healthy: false,
             status: null,
-            message: error instanceof Error
-              ? error.message
-              : "Display receiver is unavailable.",
+            message:
+              error instanceof Error
+                ? error.message
+                : "Display receiver is unavailable.",
           };
         }
       },
@@ -81,13 +82,14 @@ export default createExtension();
 function settingsFrom(configuration: Readonly<Record<string, JsonValue>>) {
   return {
     displayUrl: urlValue(configuration.displayUrl, "Configuration displayUrl"),
-    timeoutMilliseconds: integerValue(
-      configuration.requestTimeoutSeconds,
-      "Configuration requestTimeoutSeconds",
-      10,
-      1,
-      30,
-    ) * 1_000,
+    timeoutMilliseconds:
+      integerValue(
+        configuration.requestTimeoutSeconds,
+        "Configuration requestTimeoutSeconds",
+        10,
+        1,
+        30,
+      ) * 1_000,
   };
 }
 
@@ -110,7 +112,8 @@ function request(
 function parsePresentation(input: JsonValue) {
   const value = objectValue(input, "Presentation input");
   if (
-    !Array.isArray(value.lines) || value.lines.length === 0 ||
+    !Array.isArray(value.lines) ||
+    value.lines.length === 0 ||
     value.lines.length > 12
   ) {
     throw new Error(
@@ -118,7 +121,7 @@ function parsePresentation(input: JsonValue) {
     );
   }
   const lines = value.lines.map((line, index) =>
-    stringValue(line, `Presentation line ${index + 1}`)
+    stringValue(line, `Presentation line ${index + 1}`),
   );
   return {
     presentationId: stringValue(

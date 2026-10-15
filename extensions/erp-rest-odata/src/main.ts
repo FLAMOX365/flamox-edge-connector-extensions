@@ -38,9 +38,8 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
           return {
             healthy: false,
             status: null,
-            message: error instanceof Error
-              ? error.message
-              : "ERP is unavailable.",
+            message:
+              error instanceof Error ? error.message : "ERP is unavailable.",
           };
         }
       },
@@ -146,13 +145,14 @@ function settingsFrom(configuration: Readonly<Record<string, JsonValue>>) {
       "Configuration ordersPath",
       "api/orders",
     ),
-    timeoutMilliseconds: integerValue(
-      configuration.requestTimeoutSeconds,
-      "Configuration requestTimeoutSeconds",
-      30,
-      1,
-      90,
-    ) * 1_000,
+    timeoutMilliseconds:
+      integerValue(
+        configuration.requestTimeoutSeconds,
+        "Configuration requestTimeoutSeconds",
+        30,
+        1,
+        90,
+      ) * 1_000,
   };
 }
 

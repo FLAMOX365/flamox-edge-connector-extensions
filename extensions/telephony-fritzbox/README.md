@@ -16,7 +16,7 @@ derived from `baseUrl` and permits only the official TR-064 ports `49000` and
 configuration or source control.
 
 The SDK is imported from the commit-pinned Edge Connector Git submodule; it is
-not copied into this project. XML parsing uses `@std/xml` and the MD5 operation
+not copied into this project. XML parsing uses `saxes` and the MD5 operation
 mandated by TR-064 uses `@noble/hashes`. Exact runtime provenance is recorded in
 `runtime-dependencies.json`, included in the signed `.fmx`, and covered by the
 release digest. Required redistributed-license text is included through
@@ -83,8 +83,8 @@ precision explicitly.
 From this directory:
 
 ```sh
-deno task check
-deno task test
+yarn check
+yarn test
 extension validate .
 extension pack .
 ```

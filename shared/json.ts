@@ -44,7 +44,8 @@ export function integerValue(
 ): number {
   if (value === undefined) return fallback;
   if (
-    !Number.isInteger(value) || Number(value) < minimum ||
+    !Number.isInteger(value) ||
+    Number(value) < minimum ||
     Number(value) > maximum
   ) {
     throw new Error(
@@ -69,8 +70,12 @@ export function booleanValue(
 export function safeSegment(value: JsonValue, label: string): string {
   const result = stringValue(value, label);
   if (
-    result.length > 240 || result === "." || result === ".." ||
-    result.includes("/") || result.includes("\\") || result.includes("\0")
+    result.length > 240 ||
+    result === "." ||
+    result === ".." ||
+    result.includes("/") ||
+    result.includes("\\") ||
+    result.includes("\0")
   ) {
     throw new Error(`${label} must be one safe path segment.`);
   }
@@ -85,10 +90,11 @@ export function safeConfiguredPath(
   const result = value === undefined ? fallback : stringValue(value, label);
   const normalized = result.replace(/^\/+|\/+$/gu, "");
   if (
-    normalized.split("/").some((segment) =>
-      !segment || segment === "." || segment === ".."
-    ) ||
-    normalized.includes("\\") || normalized.includes("\0")
+    normalized
+      .split("/")
+      .some((segment) => !segment || segment === "." || segment === "..") ||
+    normalized.includes("\\") ||
+    normalized.includes("\0")
   ) {
     throw new Error(`${label} contains an unsafe path.`);
   }
@@ -104,7 +110,9 @@ export function urlValue(value: JsonValue | undefined, label: string): URL {
     throw new Error(`${label} must be a valid URL or host.`, { cause: error });
   }
   if (
-    !url.hostname || url.username || url.password ||
+    !url.hostname ||
+    url.username ||
+    url.password ||
     !["http:", "https:"].includes(url.protocol)
   ) {
     throw new Error(`${label} must use HTTP(S) without embedded credentials.`);
@@ -116,10 +124,11 @@ export function childUrl(baseUrl: URL, ...segments: readonly string[]): URL {
   const url = new URL(
     baseUrl.href.endsWith("/") ? baseUrl.href : `${baseUrl.href}/`,
   );
-  const encoded = segments.filter(Boolean).flatMap((segment) =>
-    segment.split("/")
-  )
-    .map((segment) => encodeURIComponent(segment)).join("/");
+  const encoded = segments
+    .filter(Boolean)
+    .flatMap((segment) => segment.split("/"))
+    .map((segment) => encodeURIComponent(segment))
+    .join("/");
   url.pathname = `${url.pathname.replace(/\/+$/u, "")}/${encoded}`;
   return url;
 }

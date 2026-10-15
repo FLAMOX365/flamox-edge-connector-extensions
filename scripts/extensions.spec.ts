@@ -1,12 +1,16 @@
-import { assertEquals, assertRejects } from "@std/assert";
+import { test } from "node:test";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import * as fs from "node:fs/promises";
+import { assertEquals, assertRejects } from "./assert.ts";
 import { discoverExtensions } from "./extensions.ts";
 
-Deno.test("discovers extension projects generically and sorts them", async () => {
-  const root = await Deno.makeTempDir();
+test("discovers extension projects generically and sorts them", async () => {
+  const root = await fs.mkdtemp(join(tmpdir(), "edge-extensions-"));
   try {
     await writeExtension(root, "z-last", "integration.z-last", "1.2.3");
     await writeExtension(root, "a-first", "integration.a-first", "0.1.0");
-    await Deno.mkdir(`${root}/notes`);
+    await fs.mkdir(`${root}/notes`);
 
     assertEquals(await discoverExtensions(root), [
       {
@@ -23,28 +27,28 @@ Deno.test("discovers extension projects generically and sorts them", async () =>
       },
     ]);
   } finally {
-    await Deno.remove(root, { recursive: true });
+    await fs.rm(root, { recursive: true });
   }
 });
 
-Deno.test("rejects incomplete extension projects", async () => {
-  const root = await Deno.makeTempDir();
+test("rejects incomplete extension projects", async () => {
+  const root = await fs.mkdtemp(join(tmpdir(), "edge-extensions-"));
   try {
-    await Deno.mkdir(`${root}/incomplete`);
-    await Deno.writeTextFile(`${root}/incomplete/deno.json`, "{}\n");
+    await fs.mkdir(`${root}/incomplete`);
+    await fs.writeFile(`${root}/incomplete/package.json`, "{}\n");
 
     await assertRejects(
       () => discoverExtensions(root),
       Error,
-      "must contain both extension-manifest.json and deno.json",
+      "must contain both extension-manifest.json and package.json",
     );
   } finally {
-    await Deno.remove(root, { recursive: true });
+    await fs.rm(root, { recursive: true });
   }
 });
 
-Deno.test("rejects duplicate extension ids", async () => {
-  const root = await Deno.makeTempDir();
+test("rejects duplicate extension ids", async () => {
+  const root = await fs.mkdtemp(join(tmpdir(), "edge-extensions-"));
   try {
     await writeExtension(root, "first", "integration.duplicate", "0.1.0");
     await writeExtension(root, "second", "integration.duplicate", "0.2.0");
@@ -55,7 +59,7 @@ Deno.test("rejects duplicate extension ids", async () => {
       "Duplicate extension id 'integration.duplicate'",
     );
   } finally {
-    await Deno.remove(root, { recursive: true });
+    await fs.rm(root, { recursive: true });
   }
 });
 
@@ -66,9 +70,9 @@ async function writeExtension(
   version: string,
 ): Promise<void> {
   const path = `${root}/${directory}`;
-  await Deno.mkdir(path);
-  await Deno.writeTextFile(`${path}/deno.json`, "{}\n");
-  await Deno.writeTextFile(
+  await fs.mkdir(path);
+  await fs.writeFile(`${path}/package.json`, "{}\n");
+  await fs.writeFile(
     `${path}/extension-manifest.json`,
     `${JSON.stringify({ id, version })}\n`,
   );

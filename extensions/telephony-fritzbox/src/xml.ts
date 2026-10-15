@@ -1,6 +1,13 @@
-import { parse, type XmlNode } from "@std/xml";
+import { SaxesParser } from "saxes";
 
-export type XmlElement = Extract<XmlNode, { readonly type: "element" }>;
+type XmlNode =
+  | XmlElement
+  | { readonly type: "text" | "cdata"; readonly text: string };
+export type XmlElement = {
+  readonly type: "element";
+  readonly name: { readonly local: string };
+  readonly children: XmlNode[];
+};
 type XmlSource = string | XmlElement;
 
 export function escapeXml(value: string): string {
@@ -26,12 +33,7 @@ export function elements(
   source: XmlSource,
   name: string,
 ): readonly XmlElement[] {
-  const root = typeof source === "string"
-    ? parse(source, {
-      disallowDoctype: true,
-      trackPosition: false,
-    }).root
-    : source;
+  const root = typeof source === "string" ? parseRoot(source) : source;
   const matches: XmlElement[] = [];
   visit(root, (element) => {
     if (element.name.local === name) matches.push(element);
@@ -39,13 +41,16 @@ export function elements(
   return matches;
 }
 
-export function soapFault(source: XmlSource): {
-  readonly code: string;
-  readonly description: string;
-} | undefined {
-  const code = elementText(source, "errorCode") ??
-    elementText(source, "faultcode");
-  const description = elementText(source, "errorDescription") ??
+export function soapFault(source: XmlSource):
+  | {
+      readonly code: string;
+      readonly description: string;
+    }
+  | undefined {
+  const code =
+    elementText(source, "errorCode") ?? elementText(source, "faultcode");
+  const description =
+    elementText(source, "errorDescription") ??
     elementText(source, "faultstring");
   if (!code && !description) return undefined;
   return {
@@ -68,4 +73,35 @@ function collectText(node: XmlNode): string {
   if (node.type === "text" || node.type === "cdata") return node.text;
   if (node.type !== "element") return "";
   return node.children.map(collectText).join("");
+}
+
+function parseRoot(source: string): XmlElement {
+  const parser = new SaxesParser({ xmlns: true });
+  const stack: XmlElement[] = [];
+  let root: XmlElement | undefined;
+  parser.on("doctype", () => {
+    throw new Error("DOCTYPE is disallowed.");
+  });
+  parser.on("opentag", (tag) => {
+    const element: XmlElement = {
+      type: "element",
+      name: { local: tag.local },
+      children: [],
+    };
+    if (stack.length) stack[stack.length - 1]!.children.push(element);
+    else root = element;
+    stack.push(element);
+  });
+  parser.on("closetag", () => {
+    stack.pop();
+  });
+  parser.on("text", (text) => {
+    stack[stack.length - 1]?.children.push({ type: "text", text });
+  });
+  parser.on("cdata", (text) => {
+    stack[stack.length - 1]?.children.push({ type: "cdata", text });
+  });
+  parser.write(source).close();
+  if (!root) throw new Error("XML document has no root element.");
+  return root;
 }

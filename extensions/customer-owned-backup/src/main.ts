@@ -22,9 +22,10 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
         } catch (error) {
           return {
             healthy: false,
-            message: error instanceof Error
-              ? error.message
-              : "Backup collection is unavailable.",
+            message:
+              error instanceof Error
+                ? error.message
+                : "Backup collection is unavailable.",
           };
         }
       },
@@ -40,20 +41,17 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
           value.contentType,
           "Backup contentType",
         );
-        if (
-          !new Set(["application/json", "application/zip"]).has(contentType)
-        ) throw new Error("Backup contentType is unsupported.");
+        if (!new Set(["application/json", "application/zip"]).has(contentType))
+          throw new Error("Backup contentType is unsupported.");
         const content = decodeBase64(
           value.contentBase64,
           "Backup contentBase64",
         );
-        const timestamp = new Date(createdAt).toISOString().replace(
-          /[:.]/gu,
-          "-",
-        );
+        const timestamp = new Date(createdAt)
+          .toISOString()
+          .replace(/[:.]/gu, "-");
         const extension = contentType === "application/zip" ? "zip" : "json";
-        const fileName =
-          `${settings.filePrefix}-${timestamp}-${exportId}.${extension}.backup`;
+        const fileName = `${settings.filePrefix}-${timestamp}-${exportId}.${extension}.backup`;
         const etag = await settings.client.write(
           `${settings.backupPath}/${fileName}`,
           Uint8Array.from(content).buffer,
@@ -69,7 +67,7 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
       },
       "list-backups": async (context) => {
         const settings = settingsFrom(context, fetcher);
-        return { backups: [...await backups(settings)] };
+        return { backups: [...(await backups(settings))] };
       },
       "prune-backups": async (context) => {
         const settings = settingsFrom(context, fetcher);
@@ -118,13 +116,14 @@ function settingsFrom(
       baseUrl: urlValue(configuration.baseUrl, "Configuration baseUrl"),
       username: context.secrets.BACKUP_USERNAME ?? "",
       password: context.secrets.BACKUP_PASSWORD ?? "",
-      timeoutMilliseconds: integerValue(
-        configuration.requestTimeoutSeconds,
-        "Configuration requestTimeoutSeconds",
-        45,
-        1,
-        90,
-      ) * 1_000,
+      timeoutMilliseconds:
+        integerValue(
+          configuration.requestTimeoutSeconds,
+          "Configuration requestTimeoutSeconds",
+          45,
+          1,
+          90,
+        ) * 1_000,
       fetcher,
     }),
   };
@@ -134,9 +133,11 @@ async function backups(
   settings: ReturnType<typeof settingsFrom>,
 ): Promise<readonly WebDavEntry[]> {
   return (await settings.client.list(settings.backupPath))
-    .filter((entry) =>
-      !entry.collection && entry.name.startsWith(`${settings.filePrefix}-`) &&
-      entry.name.endsWith(".backup")
+    .filter(
+      (entry) =>
+        !entry.collection &&
+        entry.name.startsWith(`${settings.filePrefix}-`) &&
+        entry.name.endsWith(".backup"),
     )
     .sort((left, right) => right.name.localeCompare(left.name));
 }

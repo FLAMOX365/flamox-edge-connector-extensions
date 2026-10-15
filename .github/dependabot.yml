@@ -1,6 +1,6 @@
 version: 2
 updates:
-  - package-ecosystem: deno
+  - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
@@ -8,7 +8,7 @@ updates:
       time: "05:00"
       timezone: Europe/Berlin
     groups:
-      deno-dependencies:
+      node-dependencies:
         patterns: ["*"]
 
   - package-ecosystem: gitsubmodule

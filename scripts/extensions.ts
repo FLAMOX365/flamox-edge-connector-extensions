@@ -1,4 +1,7 @@
-import { basename, fromFileUrl, join } from "@std/path";
+import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import * as fs from "node:fs/promises";
+import { basename, join } from "node:path";
 
 export type ExtensionEntry = {
   readonly directory: string;
@@ -12,7 +15,7 @@ type ExtensionManifest = {
   readonly version?: unknown;
 };
 
-const repositoryRoot = fromFileUrl(new URL("../", import.meta.url));
+const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const extensionsRoot = join(repositoryRoot, "extensions");
 const operations = ["build", "check", "test", "validate"] as const;
 
@@ -23,24 +26,26 @@ export async function discoverExtensions(
 ): Promise<readonly ExtensionEntry[]> {
   const entries: ExtensionEntry[] = [];
 
-  for await (const directory of Deno.readDir(root)) {
-    if (!directory.isDirectory || directory.isSymlink) continue;
+  for await (const directory of await fs.readdir(root, {
+    withFileTypes: true,
+  })) {
+    if (!directory.isDirectory() || directory.isSymbolicLink()) continue;
 
     const path = join(root, directory.name);
     const manifestPath = join(path, "extension-manifest.json");
-    const configurationPath = join(path, "deno.json");
+    const configurationPath = join(path, "package.json");
     const hasManifest = await isFile(manifestPath);
     const hasConfiguration = await isFile(configurationPath);
 
     if (!hasManifest && !hasConfiguration) continue;
     if (!hasManifest || !hasConfiguration) {
       throw new Error(
-        `Extension directory '${directory.name}' must contain both extension-manifest.json and deno.json.`,
+        `Extension directory '${directory.name}' must contain both extension-manifest.json and package.json.`,
       );
     }
 
     const manifest = JSON.parse(
-      await Deno.readTextFile(manifestPath),
+      await fs.readFile(manifestPath, "utf8"),
     ) as ExtensionManifest;
     if (typeof manifest.id !== "string" || manifest.id.trim().length === 0) {
       throw new Error(`Extension '${directory.name}' has no valid id.`);
@@ -71,16 +76,29 @@ async function runOperation(
 ): Promise<void> {
   for (const entry of entries) {
     console.log(`${operation}: ${entry.id}@${entry.version}`);
-    const args = operation === "check" || operation === "test"
-      ? ["task", "--cwd", entry.path, operation]
-      : ["task", "extension", "--", operation, entry.path];
-    const status = await new Deno.Command("deno", {
-      args,
-      cwd: repositoryRoot,
-      stdin: "inherit",
-      stdout: "inherit",
-      stderr: "inherit",
-    }).spawn().status;
+    const isTask = operation === "check" || operation === "test";
+    const executable = isTask ? "yarn" : process.execPath;
+    const args = isTask
+      ? ["--cwd", entry.path, "run", operation]
+      : [
+          "--import",
+          fileURLToPath(import.meta.resolve("tsx")),
+          join(repositoryRoot, "dependencies/edge-connector/cli/main.ts"),
+          operation,
+          entry.path,
+        ];
+    const status = await new Promise<{ success: boolean; code: number }>(
+      (resolve, reject) => {
+        const child = spawn(executable, args, {
+          cwd: repositoryRoot,
+          stdio: "inherit",
+        });
+        child.once("error", reject);
+        child.once("exit", (code) =>
+          resolve({ success: code === 0, code: code ?? 1 }),
+        );
+      },
+    );
     if (!status.success) {
       throw new Error(
         `${operation} failed for '${entry.id}' with exit code ${status.code}.`,
@@ -89,10 +107,7 @@ async function runOperation(
   }
 }
 
-function assertUnique(
-  entries: readonly ExtensionEntry[],
-  field: "id",
-): void {
+function assertUnique(entries: readonly ExtensionEntry[], field: "id"): void {
   const values = new Set<string>();
   for (const entry of entries) {
     if (values.has(entry[field])) {
@@ -104,22 +119,24 @@ function assertUnique(
 
 async function isFile(path: string): Promise<boolean> {
   try {
-    return (await Deno.stat(path)).isFile;
+    return (await fs.stat(path)).isFile();
   } catch (error) {
-    if (error instanceof Deno.errors.NotFound) return false;
+    if (error instanceof Error && "code" in error && error.code === "ENOENT")
+      return false;
     throw error;
   }
 }
 
 function usage(): never {
-  const script = basename(fromFileUrl(import.meta.url));
-  throw new Error(
-    `Usage: ${script} <build|check|inventory|test|validate>`,
-  );
+  const script = basename(fileURLToPath(import.meta.url));
+  throw new Error(`Usage: ${script} <build|check|inventory|test|validate>`);
 }
 
 if (import.meta.main) {
-  const args = Deno.args[0] === "--" ? Deno.args.slice(1) : Deno.args;
+  const args =
+    process.argv.slice(2)[0] === "--"
+      ? process.argv.slice(2).slice(1)
+      : process.argv.slice(2);
   const command = args[0];
   if (args.length !== 1) usage();
 

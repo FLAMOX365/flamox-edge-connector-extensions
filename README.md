@@ -14,8 +14,9 @@ git clone --recurse-submodules \
 ```
 
 `dependencies/edge-connector` is a Git submodule pointing at the authoritative
-Edge Connector repository. Extensions reference its public SDK directly during
-development. The Extension CLI bundles that SDK and all locked third-party
+Edge Connector repository. Build the pinned connector with `yarn prepare:connector` before installing this
+workspace. Extensions consume its built public npm SDK through locked `file:`
+dependencies during development. The Extension CLI bundles that SDK and all locked third-party
 dependencies into the `.fmx`; no dependency is downloaded in the customer
 network.
 
@@ -37,11 +38,11 @@ network.
 The `hello-world` reference extension proves the complete developer path:
 
 ```sh
-deno task extension -- test extensions/hello-world
-deno task extension -- dev extensions/hello-world --once \
+yarn extension test extensions/hello-world
+yarn extension dev extensions/hello-world --once \
   --input-file extensions/hello-world/examples/show-message.json
-deno task extension -- pack extensions/hello-world
-deno task extension -- publish extensions/hello-world
+yarn extension pack extensions/hello-world
+yarn extension publish extensions/hello-world
 ```
 
 The first production-oriented integration is `telephony-fritzbox`. It connects
@@ -49,32 +50,33 @@ customer-local telephony through the Edge Connector and exposes Click-to-Call,
 hangup, health and normalized call-history actions:
 
 ```sh
-deno task extension -- validate extensions/telephony-fritzbox
-deno task extension -- test extensions/telephony-fritzbox
-deno task extension -- pack extensions/telephony-fritzbox
+yarn extension validate extensions/telephony-fritzbox
+yarn extension test extensions/telephony-fritzbox
+yarn extension pack extensions/telephony-fritzbox
 ```
 
 Create another complete project through the guided wizard:
 
 ```sh
-deno task extension -- init extensions/my-extension
+yarn extension init extensions/my-extension
 ```
 
-Use Deno 2.9.4 or newer. From the repository root, the complete local gate is:
+Use Node.js 26.12.0, TypeScript 7.0.2 and Yarn 4.18.1. No Deno toolchain is required. From the repository root, the complete local gate is:
 
 ```sh
-deno install --frozen
-deno task check
-deno task lint
-deno task test
-deno task fmt
-deno task audit
-deno task validate
-deno task build
+yarn prepare:connector
+yarn install --immutable
+yarn check
+yarn lint
+yarn test
+yarn fmt
+yarn audit
+yarn validate
+yarn build
 ```
 
 Every pushed commit runs this gate for every direct child of `extensions/` that
-contains both `extension-manifest.json` and `deno.json`. The workspace and the
+contains both `extension-manifest.json` and `package.json`. The workspace and the
 build inventory use directory patterns, so adding another complete extension
 does not require a CI or root-task change.
 
@@ -110,3 +112,17 @@ Actions that print, replace a customer display, submit an order or prune a
 backup have an external side effect. Callers must follow the action's declared
 idempotency and reconcile ambiguous timeouts with the destination before
 retrying.
+
+## Runtime compatibility
+
+Every manifest declares `node-process`; the canonical connector CLI compiles
+Node.js 26 ESM bundles after TypeScript 7 validation and loads each bundle in
+its OS sandbox. HTTP integrations retain their contracts. SQL Server uses
+Tedious 20.3.7 with the SDK's authenticated SOCKS connector; direct TCP bypasses
+are unavailable. FRITZ!Box XML uses `saxes` and TR-064 MD5 uses the npm
+`@noble/hashes` package. There are no JSR/remote code imports.
+
+Historical Deno artifacts cannot be converted by changing their manifest:
+rebuild and sign a distinct release. Version assignment and publication remain
+with the human owner. The pinned connector commit must be made available before
+publishing this repository's updated submodule reference.

@@ -1,4 +1,5 @@
-import { assertEquals, assertRejects } from "@std/assert";
+import { test } from "node:test";
+import { assertEquals, assertRejects } from "../../../scripts/assert.ts";
 import { createExtension } from "./main.ts";
 
 const context = {
@@ -13,7 +14,7 @@ const context = {
   },
 };
 
-Deno.test("archive-document writes one immutable bounded object", async () => {
+test("archive-document writes one immutable bounded object", async () => {
   const requests: Request[] = [];
   const extension = createExtension((input, init) => {
     requests.push(new Request(input, init));
@@ -40,9 +41,9 @@ Deno.test("archive-document writes one immutable bounded object", async () => {
   assertEquals(requests[0]?.headers.get("if-none-match"), "*");
 });
 
-Deno.test("archive-document rejects an unsupported active content type", async () => {
+test("archive-document rejects an unsupported active content type", async () => {
   const extension = createExtension(() =>
-    Promise.reject(new Error("must not send"))
+    Promise.reject(new Error("must not send")),
   );
   await assertRejects(
     () =>

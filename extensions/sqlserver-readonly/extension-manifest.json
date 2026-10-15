@@ -6,7 +6,10 @@
   "description": "Executes named, preconfigured read-only queries against one customer-local Microsoft SQL Server.",
   "publisher": "FLAMOX365",
   "version": "0.1.0",
-  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "runtime": {
+    "kind": "node-process",
+    "entrypoint": "src/main.ts"
+  },
   "capabilities": ["data.sqlserver.read"],
   "permissions": {
     "network": [],
@@ -40,6 +43,9 @@
     "de": "translations/de.json",
     "en": "translations/en.json"
   },
-  "health": { "action": "health", "timeoutSeconds": 30 },
+  "health": {
+    "action": "health",
+    "timeoutSeconds": 30
+  },
   "notices": "THIRD_PARTY_NOTICES.md"
 }

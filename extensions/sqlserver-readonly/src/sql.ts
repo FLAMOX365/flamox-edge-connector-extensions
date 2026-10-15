@@ -1,4 +1,4 @@
-import process from "node:process";
+import { connectTcp } from "@edge-connector/sdk/tcp";
 import type { JsonValue } from "../../../shared/json.ts";
 
 export type SqlParameterType = "Bit" | "Float" | "Int" | "NVarChar";
@@ -24,12 +24,10 @@ export type SqlExecutor = (
   settings: SqlConnectionSettings,
   statement: string,
   parameters: Readonly<Record<string, SqlParameter>>,
-) => Promise<
-  {
-    readonly rows: readonly Record<string, JsonValue>[];
-    readonly rowCount: number;
-  }
->;
+) => Promise<{
+  readonly rows: readonly Record<string, JsonValue>[];
+  readonly rowCount: number;
+}>;
 
 export const executeSql: SqlExecutor = async (
   settings,
@@ -45,6 +43,12 @@ export const executeSql: SqlExecutor = async (
     },
     options: {
       port: settings.port,
+      connector: () =>
+        connectTcp(
+          settings.server,
+          settings.port,
+          settings.timeoutMilliseconds,
+        ),
       database: settings.database,
       encrypt: settings.encrypt,
       trustServerCertificate: settings.trustServerCertificate,
@@ -54,7 +58,7 @@ export const executeSql: SqlExecutor = async (
     },
   });
   await new Promise<void>((resolve, reject) => {
-    connection.connect((error) => error ? reject(error) : resolve());
+    connection.connect((error) => (error ? reject(error) : resolve()));
   });
   try {
     return await new Promise((resolve, reject) => {
@@ -80,13 +84,14 @@ export const executeSql: SqlExecutor = async (
         rows.push(row);
       });
       for (const [name, parameter] of Object.entries(parameters)) {
-        const type = parameter.type === "Bit"
-          ? TYPES.Bit
-          : parameter.type === "Float"
-          ? TYPES.Float
-          : parameter.type === "Int"
-          ? TYPES.Int
-          : TYPES.NVarChar;
+        const type =
+          parameter.type === "Bit"
+            ? TYPES.Bit
+            : parameter.type === "Float"
+              ? TYPES.Float
+              : parameter.type === "Int"
+                ? TYPES.Int
+                : TYPES.NVarChar;
         request.addParameter(name, type, parameter.value);
       }
       connection.execSql(request);
@@ -97,18 +102,17 @@ export const executeSql: SqlExecutor = async (
 };
 
 async function loadDriver(): Promise<typeof import("tedious")> {
-  Object.defineProperty(process, "env", {
-    value: Object.freeze(Object.create(null)),
-    configurable: true,
-  });
   return await import("tedious");
 }
 
 function jsonValue(value: unknown): JsonValue {
   if (
-    value === null || typeof value === "string" || typeof value === "boolean" ||
+    value === null ||
+    typeof value === "string" ||
+    typeof value === "boolean" ||
     typeof value === "number"
-  ) return value;
+  )
+    return value;
   if (value instanceof Date) return value.toISOString();
   if (value instanceof Uint8Array) {
     let binary = "";

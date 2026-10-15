@@ -31,9 +31,10 @@ export function createExtension(executor: SqlExecutor = executeSql) {
         } catch (error) {
           return {
             healthy: false,
-            message: error instanceof Error
-              ? error.message
-              : "SQL Server is unavailable.",
+            message:
+              error instanceof Error
+                ? error.message
+                : "SQL Server is unavailable.",
           };
         }
       },
@@ -55,17 +56,20 @@ export function createExtension(executor: SqlExecutor = executeSql) {
         const expectedNames = Object.keys(definition.parameters).sort();
         if (
           JSON.stringify(Object.keys(supplied).sort()) !==
-            JSON.stringify(expectedNames)
+          JSON.stringify(expectedNames)
         ) {
           throw new Error(
             `Query '${queryName}' parameters do not match its configured contract.`,
           );
         }
         const parameters = Object.fromEntries(
-          expectedNames.map((name) => [name, {
-            type: definition.parameters[name]!,
-            value: supplied[name] ?? null,
-          }]),
+          expectedNames.map((name) => [
+            name,
+            {
+              type: definition.parameters[name]!,
+              value: supplied[name] ?? null,
+            },
+          ]),
         );
         const result = await executor(
           configuration.connection,
@@ -125,13 +129,14 @@ function parseConfiguration(
         "Configuration trustServerCertificate",
         false,
       ),
-      timeoutMilliseconds: integerValue(
-        configuration.requestTimeoutSeconds,
-        "Configuration requestTimeoutSeconds",
-        30,
-        1,
-        90,
-      ) * 1_000,
+      timeoutMilliseconds:
+        integerValue(
+          configuration.requestTimeoutSeconds,
+          "Configuration requestTimeoutSeconds",
+          30,
+          1,
+          90,
+        ) * 1_000,
       maximumRows: integerValue(
         configuration.maximumRows,
         "Configuration maximumRows",
@@ -183,11 +188,14 @@ function parseQueries(
 function assertReadOnly(sql: string, name: string): void {
   const normalized = sql.replace(/\s+/gu, " ").trim();
   if (
-    normalized.length > 20_000 || normalized.includes(";") ||
-    normalized.includes("--") || normalized.includes("/*") ||
+    normalized.length > 20_000 ||
+    normalized.includes(";") ||
+    normalized.includes("--") ||
+    normalized.includes("/*") ||
     !/^(?:SELECT|WITH)\b/iu.test(normalized) ||
-    /\b(?:ALTER|BACKUP|CREATE|DELETE|DROP|EXEC(?:UTE)?|GRANT|INSERT|INTO|MERGE|NEXT\s+VALUE\s+FOR|RESTORE|REVOKE|TRUNCATE|UPDATE)\b/iu
-      .test(normalized)
+    /\b(?:ALTER|BACKUP|CREATE|DELETE|DROP|EXEC(?:UTE)?|GRANT|INSERT|INTO|MERGE|NEXT\s+VALUE\s+FOR|RESTORE|REVOKE|TRUNCATE|UPDATE)\b/iu.test(
+      normalized,
+    )
   ) {
     throw new Error(
       `Configured query '${name}' is not a single read-only statement.`,

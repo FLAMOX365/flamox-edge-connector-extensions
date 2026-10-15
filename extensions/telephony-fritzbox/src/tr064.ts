@@ -123,9 +123,7 @@ export class Tr064Client {
         cause: error,
       });
     }
-    if (
-      providerUrl.protocol !== "http:" && providerUrl.protocol !== "https:"
-    ) {
+    if (providerUrl.protocol !== "http:" && providerUrl.protocol !== "https:") {
       throw new Error("The device returned an unsupported call-list URL.");
     }
 
@@ -157,7 +155,7 @@ export class Tr064Client {
   }
 
   async #readDescription(): Promise<DeviceDescription> {
-    const target = new URL("tr64desc.xml", `${this.#baseUrl.href}/`);
+    const target = new URL("/tr64desc.xml", this.#baseUrl);
     const response = await this.#fetch(target, {
       method: "GET",
       redirect: "error",
@@ -195,9 +193,11 @@ export class Tr064Client {
     action: string,
     argumentsValue: Readonly<Record<string, string>>,
     authenticationHeader: string,
-  ): Promise<
-    { readonly ok: boolean; readonly status: number; readonly body: string }
-  > {
+  ): Promise<{
+    readonly ok: boolean;
+    readonly status: number;
+    readonly body: string;
+  }> {
     const response = await this.#fetch(service.controlUrl, {
       method: "POST",
       redirect: "error",
@@ -237,19 +237,23 @@ function soapEnvelope(
   const argumentsXml = Object.entries(argumentsValue)
     .map(([name, value]) => `<${name}>${escapeXml(value)}</${name}>`)
     .join("");
-  return `<?xml version="1.0" encoding="utf-8"?>` +
+  return (
+    `<?xml version="1.0" encoding="utf-8"?>` +
     `<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" ` +
     `s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">` +
     `<s:Header>${authenticationHeader}</s:Header>` +
     `<s:Body><u:${action} xmlns:u="${escapeXml(serviceType)}">` +
-    `${argumentsXml}</u:${action}></s:Body></s:Envelope>`;
+    `${argumentsXml}</u:${action}></s:Body></s:Envelope>`
+  );
 }
 
 function initChallengeHeader(username: string): string {
-  return `<h:InitChallenge ` +
+  return (
+    `<h:InitChallenge ` +
     `xmlns:h="http://soap-authentication.org/digest/2001/10/" ` +
     `s:mustUnderstand="1"><UserID>${escapeXml(username)}</UserID>` +
-    `</h:InitChallenge>`;
+    `</h:InitChallenge>`
+  );
 }
 
 function clientAuthHeader(
@@ -259,21 +263,21 @@ function clientAuthHeader(
 ): string {
   const secret = md5(`${username}:${state.realm}:${password}`);
   const authentication = md5(`${secret}:${state.nonce}`);
-  return `<h:ClientAuth ` +
+  return (
+    `<h:ClientAuth ` +
     `xmlns:h="http://soap-authentication.org/digest/2001/10/" ` +
     `s:mustUnderstand="1"><Nonce>${escapeXml(state.nonce)}</Nonce>` +
     `<Auth>${authentication}</Auth><UserID>${escapeXml(username)}</UserID>` +
-    `<Realm>${escapeXml(state.realm)}</Realm></h:ClientAuth>`;
+    `<Realm>${escapeXml(state.realm)}</Realm></h:ClientAuth>`
+  );
 }
 
 function parseChallenge(xml: string): AuthState | undefined {
   const challenge = elements(xml, "Challenge")[0];
-  const nonce = challenge === undefined
-    ? undefined
-    : elementText(challenge, "Nonce");
-  const realm = challenge === undefined
-    ? undefined
-    : elementText(challenge, "Realm");
+  const nonce =
+    challenge === undefined ? undefined : elementText(challenge, "Nonce");
+  const realm =
+    challenge === undefined ? undefined : elementText(challenge, "Realm");
   return nonce && realm ? { nonce, realm } : undefined;
 }
 
@@ -318,18 +322,19 @@ function responseError(action: string, status: number, xml: string): Error {
   const fault = soapFault(xml);
   return fault
     ? new Error(
-      `TR-064 action '${action}' failed (${fault.code}: ${fault.description}).`,
-    )
-    : new Error(
-      `TR-064 action '${action}' failed with HTTP status ${status}.`,
-    );
+        `TR-064 action '${action}' failed (${fault.code}: ${fault.description}).`,
+      )
+    : new Error(`TR-064 action '${action}' failed with HTTP status ${status}.`);
 }
 
 function normalizeBaseUrl(value: URL): URL {
   if (
     (value.protocol !== "http:" && value.protocol !== "https:") ||
-    value.username || value.password || value.pathname !== "/" ||
-    value.search || value.hash
+    value.username ||
+    value.password ||
+    value.pathname !== "/" ||
+    value.search ||
+    value.hash
   ) {
     throw new Error(
       "TR-064 base URL must contain only an HTTP(S) origin without credentials.",
@@ -338,9 +343,9 @@ function normalizeBaseUrl(value: URL): URL {
   const expectedPort = value.protocol === "https:" ? "49443" : "49000";
   if (value.port !== expectedPort) {
     throw new Error(
-      `TR-064 base URL must use port ${expectedPort} for ${
-        value.protocol.slice(0, -1).toUpperCase()
-      }.`,
+      `TR-064 base URL must use port ${expectedPort} for ${value.protocol
+        .slice(0, -1)
+        .toUpperCase()}.`,
     );
   }
   return new URL(value.origin);

@@ -6,7 +6,10 @@
   "description": "Forwards signed business events to one customer-local HTTP endpoint.",
   "publisher": "FLAMOX365",
   "version": "0.1.0",
-  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "runtime": {
+    "kind": "node-process",
+    "entrypoint": "src/main.ts"
+  },
   "capabilities": ["integration.webhook.forward"],
   "permissions": {
     "network": [],
@@ -40,5 +43,8 @@
     "de": "translations/de.json",
     "en": "translations/en.json"
   },
-  "health": { "action": "health", "timeoutSeconds": 20 }
+  "health": {
+    "action": "health",
+    "timeoutSeconds": 20
+  }
 }

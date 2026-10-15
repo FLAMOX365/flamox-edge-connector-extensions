@@ -3,9 +3,7 @@
   "title": "Telephony for FRITZ!Box configuration",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "baseUrl"
-  ],
+  "required": ["baseUrl"],
   "properties": {
     "baseUrl": {
       "type": "string",

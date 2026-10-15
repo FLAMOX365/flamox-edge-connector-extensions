@@ -1,4 +1,5 @@
-import { assertEquals, assertRejects } from "@std/assert";
+import { test } from "node:test";
+import { assertEquals, assertRejects } from "../../../scripts/assert.ts";
 import { createExtension } from "./main.ts";
 
 const context = {
@@ -15,7 +16,7 @@ const context = {
   },
 };
 
-Deno.test("list-products calls only the configured product route", async () => {
+test("list-products calls only the configured product route", async () => {
   const requests: Request[] = [];
   const extension = createExtension((input, init) => {
     requests.push(new Request(input, init));
@@ -33,9 +34,9 @@ Deno.test("list-products calls only the configured product route", async () => {
   assertEquals(requests[0]?.headers.get("authorization"), "Bearer token");
 });
 
-Deno.test("submit-order surfaces an upstream rejection", async () => {
+test("submit-order surfaces an upstream rejection", async () => {
   const extension = createExtension(() =>
-    Promise.resolve(Response.json({ error: "duplicate" }, { status: 409 }))
+    Promise.resolve(Response.json({ error: "duplicate" }, { status: 409 })),
   );
   await assertRejects(
     () =>

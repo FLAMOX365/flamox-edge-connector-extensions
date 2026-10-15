@@ -7,7 +7,7 @@
   "publisher": "FLAMOX365",
   "version": "0.1.0",
   "runtime": {
-    "kind": "deno-worker",
+    "kind": "node-process",
     "entrypoint": "src/main.ts"
   },
   "capabilities": [
@@ -22,16 +22,10 @@
     "configuredNetwork": [
       {
         "configurationPointer": "/baseUrl",
-        "allowedPorts": [
-          49000,
-          49443
-        ]
+        "allowedPorts": [49000, 49443]
       }
     ],
-    "secrets": [
-      "DEVICE_USERNAME",
-      "DEVICE_PASSWORD"
-    ]
+    "secrets": ["DEVICE_USERNAME", "DEVICE_PASSWORD"]
   },
   "actions": [
     {

@@ -1,4 +1,5 @@
-import { assertEquals } from "@std/assert";
+import { test } from "node:test";
+import { assertEquals } from "../../../scripts/assert.ts";
 import { createExtension } from "./main.ts";
 
 const context = {
@@ -15,7 +16,7 @@ const context = {
   },
 };
 
-Deno.test("create-backup writes one immutable snapshot with a checksum", async () => {
+test("create-backup writes one immutable snapshot with a checksum", async () => {
   const requests: Request[] = [];
   const extension = createExtension((input, init) => {
     requests.push(new Request(input, init));
@@ -37,10 +38,9 @@ Deno.test("create-backup writes one immutable snapshot with a checksum", async (
   assertEquals(requests[0]?.headers.get("if-none-match"), "*");
 });
 
-Deno.test("prune-backups deletes only older snapshots beyond retention", async () => {
+test("prune-backups deletes only older snapshots beyond retention", async () => {
   const deleted: string[] = [];
-  const xml =
-    `<?xml version="1.0"?><d:multistatus xmlns:d="DAV:"><d:response><d:href>/edge/backups/</d:href><d:propstat><d:prop><d:resourcetype><d:collection/></d:resourcetype></d:prop></d:propstat></d:response><d:response><d:href>/edge/backups/edge-backup-2026-08-01-new.json.backup</d:href></d:response><d:response><d:href>/edge/backups/edge-backup-2026-07-01-old.json.backup</d:href></d:response><d:response><d:href>/edge/backups/unrelated.backup</d:href></d:response></d:multistatus>`;
+  const xml = `<?xml version="1.0"?><d:multistatus xmlns:d="DAV:"><d:response><d:href>/edge/backups/</d:href><d:propstat><d:prop><d:resourcetype><d:collection/></d:resourcetype></d:prop></d:propstat></d:response><d:response><d:href>/edge/backups/edge-backup-2026-08-01-new.json.backup</d:href></d:response><d:response><d:href>/edge/backups/edge-backup-2026-07-01-old.json.backup</d:href></d:response><d:response><d:href>/edge/backups/unrelated.backup</d:href></d:response></d:multistatus>`;
   const extension = createExtension((input, init) => {
     const request = new Request(input, init);
     if (request.method === "DELETE") deleted.push(request.url);

@@ -36,9 +36,10 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
           return {
             healthy: false,
             status: null,
-            message: error instanceof Error
-              ? error.message
-              : "Webhook receiver is unavailable.",
+            message:
+              error instanceof Error
+                ? error.message
+                : "Webhook receiver is unavailable.",
           };
         }
       },
@@ -49,11 +50,16 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
         headers.set("content-type", "application/json");
         headers.set("x-edge-event", event.event);
         headers.set("x-edge-event-id", event.eventId);
-        const response = await fetchWithTimeout(fetcher, settings.endpointUrl, {
-          method: "POST",
-          headers,
-          body: JSON.stringify(event),
-        }, settings.timeoutMilliseconds);
+        const response = await fetchWithTimeout(
+          fetcher,
+          settings.endpointUrl,
+          {
+            method: "POST",
+            headers,
+            body: JSON.stringify(event),
+          },
+          settings.timeoutMilliseconds,
+        );
         if (!response.ok) {
           throw new Error(
             `Webhook delivery failed with HTTP status ${response.status}.`,
@@ -79,13 +85,14 @@ function parseConfiguration(
       configuration.endpointUrl,
       "Configuration endpointUrl",
     ),
-    timeoutMilliseconds: integerValue(
-      configuration.requestTimeoutSeconds,
-      "Configuration requestTimeoutSeconds",
-      15,
-      1,
-      60,
-    ) * 1_000,
+    timeoutMilliseconds:
+      integerValue(
+        configuration.requestTimeoutSeconds,
+        "Configuration requestTimeoutSeconds",
+        15,
+        1,
+        60,
+      ) * 1_000,
   };
 }
 

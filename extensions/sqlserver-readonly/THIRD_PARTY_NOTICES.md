@@ -3,9 +3,9 @@
 The packaged extension includes the following third-party software. Exact
 transitive dependency versions are captured by the repository lock file.
 
-## `tedious` 20.0.0
+## `tedious` 20.3.7
 
-Source: <https://github.com/tediousjs/tedious/tree/v20.0.0>
+Source: <https://github.com/tediousjs/tedious/tree/v20.3.7>
 
 The MIT License
 

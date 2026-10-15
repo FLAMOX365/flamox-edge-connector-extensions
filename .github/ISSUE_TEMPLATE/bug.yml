@@ -19,7 +19,7 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: Edge Connector commit, Deno version, OS, and device or protocol version.
+      description: Edge Connector commit, Node.js version, OS, and device or protocol version.
     validations:
       required: true
   - type: textarea

@@ -6,12 +6,18 @@
   "description": "Prints bounded PDF, image or text jobs on one customer-local IPP printer.",
   "publisher": "FLAMOX365",
   "version": "0.1.0",
-  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "runtime": {
+    "kind": "node-process",
+    "entrypoint": "src/main.ts"
+  },
   "capabilities": ["documents.print", "printer.health.read"],
   "permissions": {
     "network": [],
     "configuredNetwork": [
-      { "configurationPointer": "/printerUrl", "allowedPorts": [80, 443, 631] }
+      {
+        "configurationPointer": "/printerUrl",
+        "allowedPorts": [80, 443, 631]
+      }
     ],
     "secrets": ["PRINTER_USERNAME", "PRINTER_PASSWORD"]
   },
@@ -37,5 +43,8 @@
     "de": "translations/de.json",
     "en": "translations/en.json"
   },
-  "health": { "action": "health", "timeoutSeconds": 20 }
+  "health": {
+    "action": "health",
+    "timeoutSeconds": 20
+  }
 }

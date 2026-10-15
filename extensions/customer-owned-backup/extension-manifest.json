@@ -6,7 +6,10 @@
   "description": "Writes bounded export snapshots to one customer-owned WebDAV backup collection and applies configured retention.",
   "publisher": "FLAMOX365",
   "version": "0.1.0",
-  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "runtime": {
+    "kind": "node-process",
+    "entrypoint": "src/main.ts"
+  },
   "capabilities": [
     "backup.snapshot.write",
     "backup.snapshot.list",
@@ -56,5 +59,8 @@
     "de": "translations/de.json",
     "en": "translations/en.json"
   },
-  "health": { "action": "health", "timeoutSeconds": 20 }
+  "health": {
+    "action": "health",
+    "timeoutSeconds": 20
+  }
 }

@@ -33,12 +33,13 @@ export type CallList = {
 export function parseCallList(xml: string, timeZone: string): CallList {
   assertTimeZone(timeZone);
   const calls = elements(xml, "Call").map((entry) =>
-    normalizeCall(entry, timeZone)
+    normalizeCall(entry, timeZone),
   );
-  const latestCallId = calls
-    .map((call) => call.externalRecordId)
-    .sort(compareIds)
-    .at(-1) ?? null;
+  const latestCallId =
+    calls
+      .map((call) => call.externalRecordId)
+      .sort(compareIds)
+      .at(-1) ?? null;
   return {
     calls,
     cursor: {
@@ -50,9 +51,8 @@ export function parseCallList(xml: string, timeZone: string): CallList {
 
 function normalizeCall(xml: XmlElement, timeZone: string): TelephonyCallRecord {
   const providerType = integerOrNull(elementText(xml, "Type"));
-  const mapping = providerType === null
-    ? undefined
-    : typeMappings.get(providerType);
+  const mapping =
+    providerType === null ? undefined : typeMappings.get(providerType);
   const direction = mapping?.direction ?? "unknown";
   const status = mapping?.status ?? "unknown";
   const caller = cleanNumber(
@@ -61,28 +61,30 @@ function normalizeCall(xml: XmlElement, timeZone: string): TelephonyCallRecord {
   const callee = cleanNumber(
     elementText(xml, direction === "incoming" ? "CalledNumber" : "Called"),
   );
-  const remoteNumber = direction === "incoming"
-    ? caller
-    : direction === "outgoing"
-    ? callee
-    : null;
-  const localNumber = direction === "incoming"
-    ? callee
-    : direction === "outgoing"
-    ? caller
-    : null;
+  const remoteNumber =
+    direction === "incoming"
+      ? caller
+      : direction === "outgoing"
+        ? callee
+        : null;
+  const localNumber =
+    direction === "incoming"
+      ? callee
+      : direction === "outgoing"
+        ? caller
+        : null;
   const rawDate = textOrNull(elementText(xml, "Date"));
-  const startedAt = rawDate === null
-    ? null
-    : providerDateToIso(rawDate, timeZone);
+  const startedAt =
+    rawDate === null ? null : providerDateToIso(rawDate, timeZone);
   if (startedAt === null) {
     throw new Error("FRITZ!Box call record has no valid start timestamp.");
   }
   const rawDuration = textOrNull(elementText(xml, "Duration"));
   const durationSeconds = parseDuration(rawDuration);
-  const endedAt = startedAt !== null && status !== "active"
-    ? new Date(Date.parse(startedAt) + durationSeconds * 1_000).toISOString()
-    : null;
+  const endedAt =
+    startedAt !== null && status !== "active"
+      ? new Date(Date.parse(startedAt) + durationSeconds * 1_000).toISOString()
+      : null;
 
   const externalRecordId = textOrNull(elementText(xml, "Id"));
   if (externalRecordId === null) {
@@ -92,14 +94,14 @@ function normalizeCall(xml: XmlElement, timeZone: string): TelephonyCallRecord {
     callIntentId: null,
     externalRecordId,
     externalCallId: null,
-    providerRecordType: providerType === null
-      ? "unknown"
-      : String(providerType),
-    direction: direction === "incoming"
-      ? "INBOUND"
-      : direction === "outgoing"
-      ? "OUTBOUND"
-      : "UNKNOWN",
+    providerRecordType:
+      providerType === null ? "unknown" : String(providerType),
+    direction:
+      direction === "incoming"
+        ? "INBOUND"
+        : direction === "outgoing"
+          ? "OUTBOUND"
+          : "UNKNOWN",
     category: "USER_PSTN",
     callerNumber: caller,
     calleeNumber: callee,
@@ -172,7 +174,8 @@ export function providerDateToIso(
 
   for (let iteration = 0; iteration < 3; iteration++) {
     const actual = Object.fromEntries(
-      formatter.formatToParts(new Date(timestamp))
+      formatter
+        .formatToParts(new Date(timestamp))
         .filter((part) => part.type !== "literal")
         .map((part) => [part.type, Number.parseInt(part.value, 10)]),
     );
@@ -201,8 +204,9 @@ function parseDuration(value: string | null): number {
   if (value === null) return 0;
   const match = /^(\d+):(\d{2})$/u.exec(value);
   if (!match) return 0;
-  return Number.parseInt(match[1]!, 10) * 3_600 +
-    Number.parseInt(match[2]!, 10) * 60;
+  return (
+    Number.parseInt(match[1]!, 10) * 3_600 + Number.parseInt(match[2]!, 10) * 60
+  );
 }
 
 function cleanNumber(value: string | undefined): string | null {
@@ -246,14 +250,22 @@ function validDateParts(value: {
   readonly minute: number;
 }): boolean {
   if (
-    value.year < 2_000 || value.year > 9_999 ||
-    value.month < 1 || value.month > 12 ||
-    value.day < 1 || value.day > 31 ||
-    value.hour < 0 || value.hour > 23 ||
-    value.minute < 0 || value.minute > 59
-  ) return false;
+    value.year < 2_000 ||
+    value.year > 9_999 ||
+    value.month < 1 ||
+    value.month > 12 ||
+    value.day < 1 ||
+    value.day > 31 ||
+    value.hour < 0 ||
+    value.hour > 23 ||
+    value.minute < 0 ||
+    value.minute > 59
+  )
+    return false;
   const date = new Date(Date.UTC(value.year, value.month - 1, value.day));
-  return date.getUTCFullYear() === value.year &&
+  return (
+    date.getUTCFullYear() === value.year &&
     date.getUTCMonth() === value.month - 1 &&
-    date.getUTCDate() === value.day;
+    date.getUTCDate() === value.day
+  );
 }

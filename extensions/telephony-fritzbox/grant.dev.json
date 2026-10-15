@@ -6,11 +6,6 @@
     "telephony.call.end",
     "telephony.call-history.read"
   ],
-  "network": [
-    "fritz.box:49000"
-  ],
-  "secrets": [
-    "DEVICE_USERNAME",
-    "DEVICE_PASSWORD"
-  ]
+  "network": ["fritz.box:49000"],
+  "secrets": ["DEVICE_USERNAME", "DEVICE_PASSWORD"]
 }

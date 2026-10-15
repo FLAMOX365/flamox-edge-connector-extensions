@@ -39,12 +39,16 @@ export class IppClient {
     readonly jobName: string;
     readonly userName: string;
   }): Promise<{ readonly status: number; readonly jobId: number | null }> {
-    return await this.execute(0x0002, [
-      attribute(0x45, "printer-uri", this.#printerUrl.href),
-      attribute(0x42, "requesting-user-name", options.userName),
-      attribute(0x42, "job-name", options.jobName),
-      attribute(0x49, "document-format", options.documentFormat),
-    ], options.content);
+    return await this.execute(
+      0x0002,
+      [
+        attribute(0x45, "printer-uri", this.#printerUrl.href),
+        attribute(0x42, "requesting-user-name", options.userName),
+        attribute(0x42, "job-name", options.jobName),
+        attribute(0x49, "document-format", options.documentFormat),
+      ],
+      options.content,
+    );
   }
 
   private async execute(
@@ -63,14 +67,19 @@ export class IppClient {
       new Uint8Array([0x03]),
       ...(document ? [document] : []),
     ]);
-    const response = await fetchWithTimeout(this.#fetcher, this.#printerUrl, {
-      method: "POST",
-      headers: {
-        authorization: this.#authorization,
-        "content-type": "application/ipp",
+    const response = await fetchWithTimeout(
+      this.#fetcher,
+      this.#printerUrl,
+      {
+        method: "POST",
+        headers: {
+          authorization: this.#authorization,
+          "content-type": "application/ipp",
+        },
+        body: Uint8Array.from(body).buffer,
       },
-      body: Uint8Array.from(body).buffer,
-    }, this.#timeoutMilliseconds);
+      this.#timeoutMilliseconds,
+    );
     assertSuccessful(response, "IPP request");
     const bytes = new Uint8Array(await response.arrayBuffer());
     if (bytes.length < 8) throw new Error("IPP response is incomplete.");
@@ -101,7 +110,7 @@ function attribute(
 
 function integerAttribute(bytes: Uint8Array, name: string): number | null {
   const target = encoder.encode(name);
-  for (let index = 8; index + 5 < bytes.length;) {
+  for (let index = 8; index + 5 < bytes.length; ) {
     const tag = bytes[index++]!;
     if (tag === 0x03) break;
     if (tag <= 0x0f) continue;
@@ -141,6 +150,8 @@ function concatenate(parts: readonly Uint8Array[]): Uint8Array {
 }
 
 function equals(left: Uint8Array, right: Uint8Array): boolean {
-  return left.length === right.length &&
-    left.every((value, index) => value === right[index]);
+  return (
+    left.length === right.length &&
+    left.every((value, index) => value === right[index])
+  );
 }

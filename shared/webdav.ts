@@ -122,9 +122,10 @@ export class WebDavClient {
 }
 
 export function parseMultiStatus(xml: string): readonly WebDavEntry[] {
-  const responses = xml.match(
-    /<(?:[A-Za-z0-9_-]+:)?response\b[\s\S]*?<\/(?:[A-Za-z0-9_-]+:)?response>/giu,
-  ) ?? [];
+  const responses =
+    xml.match(
+      /<(?:[A-Za-z0-9_-]+:)?response\b[\s\S]*?<\/(?:[A-Za-z0-9_-]+:)?response>/giu,
+    ) ?? [];
   return responses.map((response) => {
     const href = decodeXml(text(response, "href") ?? "");
     const decodedPath = decodeURIComponent(
@@ -144,12 +145,16 @@ export function parseMultiStatus(xml: string): readonly WebDavEntry[] {
 }
 
 function text(xml: string, name: string): string | null {
-  return xml.match(
-    new RegExp(
-      `<(?:[A-Za-z0-9_-]+:)?${name}[^>]*>([\\s\\S]*?)<\\/(?:[A-Za-z0-9_-]+:)?${name}>`,
-      "iu",
-    ),
-  )?.[1]?.trim() ?? null;
+  return (
+    xml
+      .match(
+        new RegExp(
+          `<(?:[A-Za-z0-9_-]+:)?${name}[^>]*>([\\s\\S]*?)<\\/(?:[A-Za-z0-9_-]+:)?${name}>`,
+          "iu",
+        ),
+      )?.[1]
+      ?.trim() ?? null
+  );
 }
 
 function nullable(value: string | null): string | null {
@@ -157,9 +162,10 @@ function nullable(value: string | null): string | null {
 }
 
 function decodeXml(value: string): string {
-  return value.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll(
-    "&quot;",
-    '"',
-  )
-    .replaceAll("&apos;", "'").replaceAll("&amp;", "&");
+  return value
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&apos;", "'")
+    .replaceAll("&amp;", "&");
 }

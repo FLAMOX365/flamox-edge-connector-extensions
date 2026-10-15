@@ -6,7 +6,10 @@
   "description": "Reads products and availability and submits orders through fixed customer-local REST or OData routes.",
   "publisher": "FLAMOX365",
   "version": "0.1.0",
-  "runtime": { "kind": "deno-worker", "entrypoint": "src/main.ts" },
+  "runtime": {
+    "kind": "node-process",
+    "entrypoint": "src/main.ts"
+  },
   "capabilities": [
     "erp.products.read",
     "erp.availability.read",
@@ -58,5 +61,8 @@
     "de": "translations/de.json",
     "en": "translations/en.json"
   },
-  "health": { "action": "health", "timeoutSeconds": 20 }
+  "health": {
+    "action": "health",
+    "timeoutSeconds": 20
+  }
 }

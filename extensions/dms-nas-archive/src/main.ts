@@ -32,9 +32,10 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
         } catch (error) {
           return {
             healthy: false,
-            message: error instanceof Error
-              ? error.message
-              : "Archive is unavailable.",
+            message:
+              error instanceof Error
+                ? error.message
+                : "Archive is unavailable.",
           };
         }
       },
@@ -97,13 +98,14 @@ function clientFrom(
       baseUrl: urlValue(configuration.baseUrl, "Configuration baseUrl"),
       username: context.secrets.ARCHIVE_USERNAME ?? "",
       password: context.secrets.ARCHIVE_PASSWORD ?? "",
-      timeoutMilliseconds: integerValue(
-        configuration.requestTimeoutSeconds,
-        "Configuration requestTimeoutSeconds",
-        30,
-        1,
-        60,
-      ) * 1_000,
+      timeoutMilliseconds:
+        integerValue(
+          configuration.requestTimeoutSeconds,
+          "Configuration requestTimeoutSeconds",
+          30,
+          1,
+          60,
+        ) * 1_000,
       fetcher,
     }),
   };

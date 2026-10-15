@@ -1,4 +1,5 @@
-import { assertEquals, assertRejects } from "@std/assert";
+import { test } from "node:test";
+import { assertEquals, assertRejects } from "../../../scripts/assert.ts";
 import { createExtension } from "./main.ts";
 import type { SqlExecutor } from "./sql.ts";
 
@@ -21,7 +22,7 @@ const context = {
   },
 };
 
-Deno.test("query executes only a named configured SELECT", async () => {
+test("query executes only a named configured SELECT", async () => {
   const calls: unknown[] = [];
   const executor: SqlExecutor = (settings, sql, parameters) => {
     calls.push({ settings, sql, parameters });
@@ -42,7 +43,7 @@ Deno.test("query executes only a named configured SELECT", async () => {
   assertEquals(calls.length, 1);
 });
 
-Deno.test("query rejects a configured modifying statement before connecting", async () => {
+test("query rejects a configured modifying statement before connecting", async () => {
   const executor: SqlExecutor = () =>
     Promise.reject(new Error("must not connect"));
   const invalid = {
@@ -65,15 +66,13 @@ Deno.test("query rejects a configured modifying statement before connecting", as
   );
 });
 
-Deno.test("query rejects SELECT INTO and sequence side effects", async () => {
+test("query rejects SELECT INTO and sequence side effects", async () => {
   const executor: SqlExecutor = () =>
     Promise.reject(new Error("must not connect"));
-  for (
-    const sql of [
-      "SELECT * INTO copied_products FROM products",
-      "SELECT NEXT VALUE FOR order_sequence",
-    ]
-  ) {
+  for (const sql of [
+    "SELECT * INTO copied_products FROM products",
+    "SELECT NEXT VALUE FOR order_sequence",
+  ]) {
     const invalid = {
       ...context,
       configuration: {

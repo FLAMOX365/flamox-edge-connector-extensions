@@ -9,17 +9,21 @@ export function parseMessage(
   kind: "info" | "warning" | "error";
 } {
   if (
-    typeof input !== "object" || input === null || Array.isArray(input) ||
+    typeof input !== "object" ||
+    input === null ||
+    Array.isArray(input) ||
     (input.title !== undefined && typeof input.title !== "string") ||
     typeof input.message !== "string" ||
     (input.kind !== undefined &&
-      input.kind !== "info" && input.kind !== "warning" &&
+      input.kind !== "info" &&
+      input.kind !== "warning" &&
       input.kind !== "error")
   ) {
     throw new Error("Input must contain message and optional title and kind.");
   }
   return {
-    title: input.title ??
+    title:
+      input.title ??
       (typeof defaultTitle === "string"
         ? defaultTitle
         : "Hello from the Edge Connector"),

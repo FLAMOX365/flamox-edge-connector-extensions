@@ -1,4 +1,5 @@
-import { assertEquals } from "@std/assert";
+import { test } from "node:test";
+import { assertEquals } from "../../../scripts/assert.ts";
 import { createExtension } from "./main.ts";
 
 const context = {
@@ -15,26 +16,27 @@ const context = {
   },
 };
 
-Deno.test("list-files returns only CSV and XML documents", async () => {
-  const xml =
-    `<?xml version="1.0"?><d:multistatus xmlns:d="DAV:"><d:response><d:href>/hotfolder/inbox/</d:href><d:propstat><d:prop><d:resourcetype><d:collection/></d:resourcetype></d:prop></d:propstat></d:response><d:response><d:href>/hotfolder/inbox/orders.csv</d:href><d:propstat><d:prop><d:getcontentlength>42</d:getcontentlength><d:getetag>"v1"</d:getetag></d:prop></d:propstat></d:response><d:response><d:href>/hotfolder/inbox/readme.txt</d:href></d:response></d:multistatus>`;
+test("list-files returns only CSV and XML documents", async () => {
+  const xml = `<?xml version="1.0"?><d:multistatus xmlns:d="DAV:"><d:response><d:href>/hotfolder/inbox/</d:href><d:propstat><d:prop><d:resourcetype><d:collection/></d:resourcetype></d:prop></d:propstat></d:response><d:response><d:href>/hotfolder/inbox/orders.csv</d:href><d:propstat><d:prop><d:getcontentlength>42</d:getcontentlength><d:getetag>"v1"</d:getetag></d:prop></d:propstat></d:response><d:response><d:href>/hotfolder/inbox/readme.txt</d:href></d:response></d:multistatus>`;
   const extension = createExtension(() =>
-    Promise.resolve(new Response(xml, { status: 207 }))
+    Promise.resolve(new Response(xml, { status: 207 })),
   );
   const result = await extension.actions["list-files"](context);
   assertEquals(result, {
-    files: [{
-      name: "orders.csv",
-      href: "/hotfolder/inbox/orders.csv",
-      etag: '"v1"',
-      size: 42,
-      modifiedAt: null,
-      collection: false,
-    }],
+    files: [
+      {
+        name: "orders.csv",
+        href: "/hotfolder/inbox/orders.csv",
+        etag: '"v1"',
+        size: 42,
+        modifiedAt: null,
+        collection: false,
+      },
+    ],
   });
 });
 
-Deno.test("write-file uses the fixed outbox and refuses arbitrary destinations", async () => {
+test("write-file uses the fixed outbox and refuses arbitrary destinations", async () => {
   const requests: Request[] = [];
   const extension = createExtension((input, init) => {
     requests.push(new Request(input, init));

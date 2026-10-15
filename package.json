@@ -1,0 +1,32 @@
+{
+  "name": "@edge-extensions/catalog",
+  "private": true,
+  "type": "module",
+  "packageManager": "yarn@4.18.1",
+  "engines": {
+    "node": ">=26.0.0 <27"
+  },
+  "workspaces": [
+    "extensions/*"
+  ],
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "node --import tsx --test scripts/*.spec.ts shared/*.spec.ts extensions/*/src/*.spec.ts",
+    "test:coverage": "node --import tsx --test --experimental-test-coverage --test-coverage-include='extensions/*/src/**/*.ts' --test-coverage-include='shared/**/*.ts' --test-coverage-include='scripts/extensions.ts' --test-coverage-exclude='**/*.spec.ts' --test-coverage-include-all scripts/*.spec.ts shared/*.spec.ts extensions/*/src/*.spec.ts",
+    "extensions": "node --import tsx scripts/extensions.ts",
+    "extension": "node --import tsx dependencies/edge-connector/cli/main.ts",
+    "build": "yarn extensions build",
+    "validate": "yarn extensions validate",
+    "prepare:connector": "yarn --cwd dependencies/edge-connector install --immutable && yarn --cwd dependencies/edge-connector build",
+    "fmt": "biome format .",
+    "fmt:write": "biome format --write .",
+    "lint": "biome lint .",
+    "audit": "yarn npm audit --all --recursive"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+    "@types/node": "26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "7.0.2"
+  }
+}

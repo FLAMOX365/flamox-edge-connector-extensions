@@ -1,4 +1,5 @@
-import { assertEquals } from "@std/assert";
+import { test } from "node:test";
+import { assertEquals } from "../../../scripts/assert.ts";
 import { createExtension } from "./main.ts";
 
 const context = {
@@ -12,7 +13,7 @@ const context = {
   },
 };
 
-Deno.test("show replaces the presentation on the fixed receiver", async () => {
+test("show replaces the presentation on the fixed receiver", async () => {
   const requests: Request[] = [];
   const extension = createExtension((input, init) => {
     requests.push(new Request(input, init));

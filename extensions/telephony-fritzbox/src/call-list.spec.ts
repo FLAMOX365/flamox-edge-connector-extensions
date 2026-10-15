@@ -1,7 +1,8 @@
-import { assertEquals } from "@std/assert";
+import { test } from "node:test";
+import { assertEquals } from "../../../scripts/assert.ts";
 import { parseCallList, providerDateToIso } from "./call-list.ts";
 
-Deno.test("call list is normalized to provider-neutral call metadata", () => {
+test("call list is normalized to provider-neutral call metadata", () => {
   const result = parseCallList(
     `<?xml version="1.0"?>
     <root>
@@ -116,7 +117,7 @@ Deno.test("call list is normalized to provider-neutral call metadata", () => {
   });
 });
 
-Deno.test("provider date conversion respects daylight-saving time", () => {
+test("provider date conversion respects daylight-saving time", () => {
   assertEquals(
     providerDateToIso("31.01.24 12:00", "Europe/Berlin"),
     "2024-01-31T11:00:00.000Z",

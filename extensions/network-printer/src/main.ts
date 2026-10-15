@@ -27,9 +27,10 @@ export function createExtension(fetcher: FetchLike = globalThis.fetch) {
           return {
             healthy: false,
             ippStatus: null,
-            message: error instanceof Error
-              ? error.message
-              : "Printer is unavailable.",
+            message:
+              error instanceof Error
+                ? error.message
+                : "Printer is unavailable.",
           };
         }
       },
@@ -82,13 +83,14 @@ function clientFrom(
       ),
       username: context.secrets.PRINTER_USERNAME ?? "",
       password: context.secrets.PRINTER_PASSWORD ?? "",
-      timeoutMilliseconds: integerValue(
-        configuration.requestTimeoutSeconds,
-        "Configuration requestTimeoutSeconds",
-        30,
-        1,
-        90,
-      ) * 1_000,
+      timeoutMilliseconds:
+        integerValue(
+          configuration.requestTimeoutSeconds,
+          "Configuration requestTimeoutSeconds",
+          30,
+          1,
+          90,
+        ) * 1_000,
       fetcher,
     }),
   };

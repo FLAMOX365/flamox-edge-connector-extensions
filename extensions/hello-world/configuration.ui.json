@@ -10,9 +10,7 @@
   "sections": [
     {
       "title": "Message",
-      "fields": [
-        "defaultTitle"
-      ]
+      "fields": ["defaultTitle"]
     }
   ]
 }
