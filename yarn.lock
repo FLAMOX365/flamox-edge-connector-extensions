@@ -215,19 +215,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@biomejs/biome@npm:^2.5.15":
-  version: 2.5.15
-  resolution: "@biomejs/biome@npm:2.5.15"
+"@biomejs/biome@npm:^2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/biome@npm:2.6.4"
   dependencies:
-    "@biomejs/cli-darwin-arm64": "npm:2.5.15"
-    "@biomejs/cli-darwin-x64": "npm:2.5.15"
-    "@biomejs/cli-linux-arm64": "npm:2.5.15"
-    "@biomejs/cli-linux-arm64-musl": "npm:2.5.15"
-    "@biomejs/cli-linux-x64": "npm:2.5.15"
-    "@biomejs/cli-linux-x64-musl": "npm:2.5.15"
-    "@biomejs/cli-win32-arm64": "npm:2.5.15"
-    "@biomejs/cli-win32-x64": "npm:2.5.15"
+    "@biomejs/cli-android-arm64": "npm:2.6.4"
+    "@biomejs/cli-android-x64": "npm:2.6.4"
+    "@biomejs/cli-darwin-arm64": "npm:2.6.4"
+    "@biomejs/cli-darwin-x64": "npm:2.6.4"
+    "@biomejs/cli-linux-arm64": "npm:2.6.4"
+    "@biomejs/cli-linux-arm64-musl": "npm:2.6.4"
+    "@biomejs/cli-linux-x64": "npm:2.6.4"
+    "@biomejs/cli-linux-x64-musl": "npm:2.6.4"
+    "@biomejs/cli-win32-arm64": "npm:2.6.4"
+    "@biomejs/cli-win32-x64": "npm:2.6.4"
   dependenciesMeta:
+    "@biomejs/cli-android-arm64":
+      optional: true
+    "@biomejs/cli-android-x64":
+      optional: true
     "@biomejs/cli-darwin-arm64":
       optional: true
     "@biomejs/cli-darwin-x64":
@@ -246,153 +252,167 @@ __metadata:
       optional: true
   bin:
     biome: bin/biome
-  checksum: 10c0/8c8f270eb8f11801968d064c5924cce2e0bc3f54317181486cfb9a0818048c4655bd7cbe59275633a9fe4fc92160a4fdb62fb603d80df0eebc2b6b67e52c675b
+  checksum: 10c0/72f6d58859628b06db4f53930dde1f443f8c3752f9dc597b32da61f1f467f3df128eb51f5272e46b5113e12b3390902e116d5e536afbe8a9fcb24dc86782fe63
   languageName: node
   linkType: hard
 
-"@biomejs/cli-darwin-arm64@npm:2.5.15":
-  version: 2.5.15
-  resolution: "@biomejs/cli-darwin-arm64@npm:2.5.15"
+"@biomejs/cli-android-arm64@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/cli-android-arm64@npm:2.6.4"
+  conditions: os=android & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-android-x64@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/cli-android-x64@npm:2.6.4"
+  conditions: os=android & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@biomejs/cli-darwin-arm64@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/cli-darwin-arm64@npm:2.6.4"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-darwin-x64@npm:2.5.15":
-  version: 2.5.15
-  resolution: "@biomejs/cli-darwin-x64@npm:2.5.15"
+"@biomejs/cli-darwin-x64@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/cli-darwin-x64@npm:2.6.4"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-arm64-musl@npm:2.5.15":
-  version: 2.5.15
-  resolution: "@biomejs/cli-linux-arm64-musl@npm:2.5.15"
+"@biomejs/cli-linux-arm64-musl@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/cli-linux-arm64-musl@npm:2.6.4"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-arm64@npm:2.5.15":
-  version: 2.5.15
-  resolution: "@biomejs/cli-linux-arm64@npm:2.5.15"
+"@biomejs/cli-linux-arm64@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/cli-linux-arm64@npm:2.6.4"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-x64-musl@npm:2.5.15":
-  version: 2.5.15
-  resolution: "@biomejs/cli-linux-x64-musl@npm:2.5.15"
+"@biomejs/cli-linux-x64-musl@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/cli-linux-x64-musl@npm:2.6.4"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-x64@npm:2.5.15":
-  version: 2.5.15
-  resolution: "@biomejs/cli-linux-x64@npm:2.5.15"
+"@biomejs/cli-linux-x64@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/cli-linux-x64@npm:2.6.4"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@biomejs/cli-win32-arm64@npm:2.5.15":
-  version: 2.5.15
-  resolution: "@biomejs/cli-win32-arm64@npm:2.5.15"
+"@biomejs/cli-win32-arm64@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/cli-win32-arm64@npm:2.6.4"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-win32-x64@npm:2.5.15":
-  version: 2.5.15
-  resolution: "@biomejs/cli-win32-x64@npm:2.5.15"
+"@biomejs/cli-win32-x64@npm:2.6.4":
+  version: 2.6.4
+  resolution: "@biomejs/cli-win32-x64@npm:2.6.4"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
 "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fcustomer-display%40workspace%3Aextensions%2Fcustomer-display":
   version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fcustomer-display%40workspace%3Aextensions%2Fcustomer-display"
+  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=170641&locator=%40edge-extensions%2Fcustomer-display%40workspace%3Aextensions%2Fcustomer-display"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
+  checksum: 10c0/3a60fa4f6c3b877ff8e2d048c0ee3f8bbe017739d87b65293293a65333363afb17f4c81c124a8d6afc1485f9d6cdbebad352d45e1149f0174f770f10a5acf959
   languageName: node
   linkType: hard
 
 "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fcustomer-owned-backup%40workspace%3Aextensions%2Fcustomer-owned-backup":
   version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fcustomer-owned-backup%40workspace%3Aextensions%2Fcustomer-owned-backup"
+  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=170641&locator=%40edge-extensions%2Fcustomer-owned-backup%40workspace%3Aextensions%2Fcustomer-owned-backup"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
+  checksum: 10c0/3a60fa4f6c3b877ff8e2d048c0ee3f8bbe017739d87b65293293a65333363afb17f4c81c124a8d6afc1485f9d6cdbebad352d45e1149f0174f770f10a5acf959
   languageName: node
   linkType: hard
 
 "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fdata-hotfolder%40workspace%3Aextensions%2Fdata-hotfolder":
   version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fdata-hotfolder%40workspace%3Aextensions%2Fdata-hotfolder"
+  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=170641&locator=%40edge-extensions%2Fdata-hotfolder%40workspace%3Aextensions%2Fdata-hotfolder"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
+  checksum: 10c0/3a60fa4f6c3b877ff8e2d048c0ee3f8bbe017739d87b65293293a65333363afb17f4c81c124a8d6afc1485f9d6cdbebad352d45e1149f0174f770f10a5acf959
   languageName: node
   linkType: hard
 
 "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fdms-nas-archive%40workspace%3Aextensions%2Fdms-nas-archive":
   version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fdms-nas-archive%40workspace%3Aextensions%2Fdms-nas-archive"
+  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=170641&locator=%40edge-extensions%2Fdms-nas-archive%40workspace%3Aextensions%2Fdms-nas-archive"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
+  checksum: 10c0/3a60fa4f6c3b877ff8e2d048c0ee3f8bbe017739d87b65293293a65333363afb17f4c81c124a8d6afc1485f9d6cdbebad352d45e1149f0174f770f10a5acf959
   languageName: node
   linkType: hard
 
 "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Ferp-rest-odata%40workspace%3Aextensions%2Ferp-rest-odata":
   version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Ferp-rest-odata%40workspace%3Aextensions%2Ferp-rest-odata"
+  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=170641&locator=%40edge-extensions%2Ferp-rest-odata%40workspace%3Aextensions%2Ferp-rest-odata"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
+  checksum: 10c0/3a60fa4f6c3b877ff8e2d048c0ee3f8bbe017739d87b65293293a65333363afb17f4c81c124a8d6afc1485f9d6cdbebad352d45e1149f0174f770f10a5acf959
   languageName: node
   linkType: hard
 
 "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fhello-world%40workspace%3Aextensions%2Fhello-world":
   version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fhello-world%40workspace%3Aextensions%2Fhello-world"
+  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=170641&locator=%40edge-extensions%2Fhello-world%40workspace%3Aextensions%2Fhello-world"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
+  checksum: 10c0/3a60fa4f6c3b877ff8e2d048c0ee3f8bbe017739d87b65293293a65333363afb17f4c81c124a8d6afc1485f9d6cdbebad352d45e1149f0174f770f10a5acf959
   languageName: node
   linkType: hard
 
 "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Finternal-webhook-relay%40workspace%3Aextensions%2Finternal-webhook-relay":
   version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Finternal-webhook-relay%40workspace%3Aextensions%2Finternal-webhook-relay"
+  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=170641&locator=%40edge-extensions%2Finternal-webhook-relay%40workspace%3Aextensions%2Finternal-webhook-relay"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
+  checksum: 10c0/3a60fa4f6c3b877ff8e2d048c0ee3f8bbe017739d87b65293293a65333363afb17f4c81c124a8d6afc1485f9d6cdbebad352d45e1149f0174f770f10a5acf959
   languageName: node
   linkType: hard
 
 "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fnetwork-printer%40workspace%3Aextensions%2Fnetwork-printer":
   version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fnetwork-printer%40workspace%3Aextensions%2Fnetwork-printer"
+  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=170641&locator=%40edge-extensions%2Fnetwork-printer%40workspace%3Aextensions%2Fnetwork-printer"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
+  checksum: 10c0/3a60fa4f6c3b877ff8e2d048c0ee3f8bbe017739d87b65293293a65333363afb17f4c81c124a8d6afc1485f9d6cdbebad352d45e1149f0174f770f10a5acf959
   languageName: node
   linkType: hard
 
 "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fsqlserver-readonly%40workspace%3Aextensions%2Fsqlserver-readonly":
   version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fsqlserver-readonly%40workspace%3Aextensions%2Fsqlserver-readonly"
+  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=170641&locator=%40edge-extensions%2Fsqlserver-readonly%40workspace%3Aextensions%2Fsqlserver-readonly"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
+  checksum: 10c0/3a60fa4f6c3b877ff8e2d048c0ee3f8bbe017739d87b65293293a65333363afb17f4c81c124a8d6afc1485f9d6cdbebad352d45e1149f0174f770f10a5acf959
   languageName: node
   linkType: hard
 
 "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Ftelephony-fritzbox%40workspace%3Aextensions%2Ftelephony-fritzbox":
   version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Ftelephony-fritzbox%40workspace%3Aextensions%2Ftelephony-fritzbox"
+  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=170641&locator=%40edge-extensions%2Ftelephony-fritzbox%40workspace%3Aextensions%2Ftelephony-fritzbox"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
+  checksum: 10c0/3a60fa4f6c3b877ff8e2d048c0ee3f8bbe017739d87b65293293a65333363afb17f4c81c124a8d6afc1485f9d6cdbebad352d45e1149f0174f770f10a5acf959
   languageName: node
   linkType: hard
 
@@ -400,8 +420,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/catalog@workspace:."
   dependencies:
-    "@biomejs/biome": "npm:^2.5.15"
-    "@types/node": "npm:26.6.5"
+    "@biomejs/biome": "npm:^2.6.4"
+    "@types/node": "npm:26.6.6"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
   languageName: unknown
@@ -412,7 +432,7 @@ __metadata:
   resolution: "@edge-extensions/customer-display@workspace:extensions/customer-display"
   dependencies:
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
-    "@types/node": "npm:26.6.5"
+    "@types/node": "npm:26.6.6"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
   languageName: unknown
@@ -423,7 +443,7 @@ __metadata:
   resolution: "@edge-extensions/customer-owned-backup@workspace:extensions/customer-owned-backup"
   dependencies:
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
-    "@types/node": "npm:26.6.5"
+    "@types/node": "npm:26.6.6"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
   languageName: unknown
@@ -434,7 +454,7 @@ __metadata:
   resolution: "@edge-extensions/data-hotfolder@workspace:extensions/data-hotfolder"
   dependencies:
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
-    "@types/node": "npm:26.6.5"
+    "@types/node": "npm:26.6.6"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
   languageName: unknown
@@ -445,7 +465,7 @@ __metadata:
   resolution: "@edge-extensions/dms-nas-archive@workspace:extensions/dms-nas-archive"
   dependencies:
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
-    "@types/node": "npm:26.6.5"
+    "@types/node": "npm:26.6.6"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
   languageName: unknown
@@ -456,7 +476,7 @@ __metadata:
   resolution: "@edge-extensions/erp-rest-odata@workspace:extensions/erp-rest-odata"
   dependencies:
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
-    "@types/node": "npm:26.6.5"
+    "@types/node": "npm:26.6.6"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
   languageName: unknown
@@ -467,7 +487,7 @@ __metadata:
   resolution: "@edge-extensions/hello-world@workspace:extensions/hello-world"
   dependencies:
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
-    "@types/node": "npm:26.6.5"
+    "@types/node": "npm:26.6.6"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
   languageName: unknown
@@ -478,7 +498,7 @@ __metadata:
   resolution: "@edge-extensions/internal-webhook-relay@workspace:extensions/internal-webhook-relay"
   dependencies:
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
-    "@types/node": "npm:26.6.5"
+    "@types/node": "npm:26.6.6"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
   languageName: unknown
@@ -489,7 +509,7 @@ __metadata:
   resolution: "@edge-extensions/network-printer@workspace:extensions/network-printer"
   dependencies:
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
-    "@types/node": "npm:26.6.5"
+    "@types/node": "npm:26.6.6"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
   languageName: unknown
@@ -500,8 +520,8 @@ __metadata:
   resolution: "@edge-extensions/sqlserver-readonly@workspace:extensions/sqlserver-readonly"
   dependencies:
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
-    "@types/node": "npm:26.6.5"
-    tedious: "npm:20.3.7"
+    "@types/node": "npm:26.6.6"
+    tedious: "npm:20.3.8"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
   languageName: unknown
@@ -513,7 +533,7 @@ __metadata:
   dependencies:
     "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
     "@noble/hashes": "npm:2.4.0"
-    "@types/node": "npm:26.6.5"
+    "@types/node": "npm:26.6.6"
     saxes: "npm:^6.0.0"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
@@ -725,12 +745,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:26.6.5, @types/node@npm:>=22":
+"@types/node@npm:*, @types/node@npm:>=22":
   version: 26.6.5
   resolution: "@types/node@npm:26.6.5"
   dependencies:
     undici-types: "npm:~8.9.0"
   checksum: 10c0/4f791f69466ace7842c09e7bef96cb1ddbb65cf3db916ef7e84f0e2b2a17220b6b816dc7539d01520cadfb17ed7169b8214910900493e0a83be8bc7d124ec20a
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:26.6.6":
+  version: 26.6.6
+  resolution: "@types/node@npm:26.6.6"
+  dependencies:
+    undici-types: "npm:~8.9.0"
+  checksum: 10c0/5cb63f644f6e85a257a9cd2403cbcbe196760e2a35fd3ec9fb8b5cff663e14cc832b198cc17b53f870a2e30900ed45a1fb3f53e6589aba26b8e8c484aa672053
   languageName: node
   linkType: hard
 
@@ -1551,9 +1580,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tedious@npm:20.3.7":
-  version: 20.3.7
-  resolution: "tedious@npm:20.3.7"
+"tedious@npm:20.3.8":
+  version: 20.3.8
+  resolution: "tedious@npm:20.3.8"
   dependencies:
     "@azure/core-auth": "npm:^1.10.1"
     "@azure/identity": "npm:^4.13.1"
@@ -1564,7 +1593,7 @@ __metadata:
     iconv-lite: "npm:^0.7.0"
     js-md4: "npm:^0.3.2"
     native-duplexpair: "npm:^1.0.0"
-  checksum: 10c0/b8bffef21eaa1770f3bfd7b3abc57e99bc9a646a49a171ed8187e2ba25e2d37c82c4786c706568e9aab90e3b7374e9f646edbc8245317a25fe4d60127b4705b3
+  checksum: 10c0/0a2e3789d5e975197e8337de9e30d2738e09b5a5079a6bbac3e816631064ddf8c2b3e74bfc282284e6ea359980add10bf6794a656fa26a0c0a99f191bfdf6372
   languageName: node
   linkType: hard
 
