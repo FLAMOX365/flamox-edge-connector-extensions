@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: ["**"]
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -11,7 +11,8 @@ concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  verify:
+  platform:
+    name: Verify on ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -32,9 +33,16 @@ jobs:
           node-version-file: .node-version
           package-manager-cache: false
       - name: Install package manager
-        run: npm install --global corepack@0.36.0 && corepack enable
+        run: |
+          # Replace the preinstalled Yarn Classic shims on hosted runners.
+          npm install --global --force corepack@0.36.0
+          corepack enable
       - name: Prepare pinned connector and SDK
-        run: yarn prepare:connector
+        working-directory: dependencies/edge-connector
+        run: |
+          yarn install --immutable
+          yarn build
+      - run: yarn install --immutable
       - name: Linux sandbox prerequisites
         if: runner.os == 'Linux'
         run: |
@@ -43,15 +51,27 @@ jobs:
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Provision Windows sandbox account and WFP rules
         if: runner.os == 'Windows'
-        run: yarn --cwd dependencies/edge-connector exec srt windows-install
-      - run: yarn install --immutable
+        shell: pwsh
+        run: |
+          Start-Service -Name seclogon -ErrorAction Stop
+          yarn --cwd dependencies/edge-connector exec srt windows-install --skip-profile-grant
+      - name: Test Dependabot automation
+        run: node --test .github/scripts/*Dependabot*.spec.mjs
       - run: yarn fmt
       - run: yarn lint
       - run: yarn check
       - run: yarn test:coverage
+        if: runner.os != 'Windows'
       - run: yarn validate
+        if: runner.os != 'Windows'
       - run: yarn audit
+        if: runner.os != 'Windows'
       - run: yarn build
+        if: runner.os != 'Windows'
+      - name: Verify Windows sandbox and extensions
+        if: runner.os == 'Windows'
+        timeout-minutes: 22
+        run: yarn node dependencies/edge-connector/tools/verify-windows-sandbox.ts test:coverage validate audit build
       - name: Record compiled extension inventory
         run: yarn extensions inventory > extension-artifact-inventory.json
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -62,3 +82,14 @@ jobs:
             extensions/*/dist/
           if-no-files-found: error
           retention-days: 90
+
+  verify:
+    name: Verify
+    if: ${{ always() }}
+    needs: platform
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Require all platform checks to pass
+        env:
+          PLATFORM_RESULT: ${{ needs.platform.result }}
+        run: test "$PLATFORM_RESULT" = success

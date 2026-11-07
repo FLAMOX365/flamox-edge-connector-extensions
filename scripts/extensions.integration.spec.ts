@@ -9,8 +9,8 @@ import {
   type AddressInfo,
   type Socket,
 } from "node:net";
-import { readFile, rm } from "node:fs/promises";
-import { join } from "node:path";
+import { mkdir, readFile, rm } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildProject } from "../dependencies/edge-connector/cli/project.ts";
 import { ExtensionHost } from "../dependencies/edge-connector/runtime/extension-host.ts";
@@ -35,7 +35,12 @@ test("every catalog extension executes its compiled action contracts in the OS s
         "dist",
         `verification-${crypto.randomUUID()}`,
       );
-      t.after(() => rm(output, { recursive: true, force: true }));
+      await mkdir(dirname(output), { recursive: true });
+      let extensionHost: ExtensionHost | undefined;
+      t.after(async () => {
+        await extensionHost?.stop();
+        await rm(output, { recursive: true, force: true });
+      });
       const built = await buildProject(join(root, entry.path), output);
       assert.equal(built.manifest.runtime.entrypoint, "runtime/extension.mjs");
       const requests: {
@@ -213,7 +218,7 @@ test("every catalog extension executes its compiled action contracts in the OS s
           },
         },
       });
-      t.after(() => host.stop());
+      extensionHost = host;
       const exercised = new Set<string>();
       const execute = async (action: string, input: JsonValue = null) => {
         exercised.add(action);

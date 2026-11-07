@@ -118,8 +118,8 @@ __metadata:
   linkType: hard
 
 "@azure/identity@npm:^4.13.1":
-  version: 4.14.0
-  resolution: "@azure/identity@npm:4.14.0"
+  version: 4.14.1
+  resolution: "@azure/identity@npm:4.14.1"
   dependencies:
     "@azure/abort-controller": "npm:^2.0.0"
     "@azure/core-auth": "npm:^1.9.0"
@@ -130,10 +130,10 @@ __metadata:
     "@azure/core-util": "npm:^1.11.0"
     "@azure/logger": "npm:^1.0.0"
     "@azure/msal-browser": "npm:^5.5.0"
-    "@azure/msal-node": "npm:^6.0.0"
+    "@azure/msal-node": "npm:^7.1.0"
     open: "npm:^11.0.0"
     tslib: "npm:^2.2.0"
-  checksum: 10c0/0968fa00e442033c62aecbb57a9aec0729bf33157236e877769472697d5dbdcb9d54161ce611449db471cbd35f6c78a16929789e01f8ce7f76fa08962fb859d3
+  checksum: 10c0/6e2c6596f63fc079c0890095085ed91266a2e5c5f196ca52592dc7445a91d225f115af6f9456a341b3357bced451b64ff96695d27f872e0bee36c801be73edf3
   languageName: node
   linkType: hard
 
@@ -191,13 +191,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:16.14.1":
-  version: 16.14.1
-  resolution: "@azure/msal-common@npm:16.14.1"
-  checksum: 10c0/99abadb8ce40cf234e534776806e17a76904d9f99af069e20e6e7513cb3956428809672cb7fc2e1bde6ab0684b7027225514fe0d11671017b985ce7db8886087
-  languageName: node
-  linkType: hard
-
 "@azure/msal-common@npm:16.14.2":
   version: 16.14.2
   resolution: "@azure/msal-common@npm:16.14.2"
@@ -205,13 +198,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^6.0.0":
-  version: 6.0.1
-  resolution: "@azure/msal-node@npm:6.0.1"
+"@azure/msal-common@npm:16.16.0":
+  version: 16.16.0
+  resolution: "@azure/msal-common@npm:16.16.0"
+  checksum: 10c0/5ba7ea4d6ac094b43c5e4904b91d9fda3faa41a0aab3b3f142487d1ecd9ac12cb21f52ada09e287c72c81cd84a449f939123cd9717cb8bf8203ccae39b0c36df
+  languageName: node
+  linkType: hard
+
+"@azure/msal-node@npm:^7.1.0":
+  version: 7.2.0
+  resolution: "@azure/msal-node@npm:7.2.0"
   dependencies:
-    "@azure/msal-common": "npm:16.14.1"
+    "@azure/msal-common": "npm:16.16.0"
     jsonwebtoken: "npm:^9.0.0"
-  checksum: 10c0/feab144530e708b3d9c7e50a30e3339a460fc4d9879c8841795ffea49bab78395963c0740235a9e585d8c81587291ed286ff6b99fdd5236748ff662e2aea75c8
+  checksum: 10c0/ba292d5439c95c24acdf76c3e7046876ac319be93d5f07086b54b358d6aec0df4594f69b69d8e138e3fb44d5c488abdaa6b48b2afc063dd786f8169a71327399
   languageName: node
   linkType: hard
 
@@ -306,95 +306,85 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fcustomer-display%40workspace%3Aextensions%2Fcustomer-display":
-  version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fcustomer-display%40workspace%3Aextensions%2Fcustomer-display"
+"@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fcustomer-display%40workspace%3Aextensions%2Fcustomer-display":
+  version: 0.0.0-use.local
+  resolution: "@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fcustomer-display%40workspace%3Aextensions%2Fcustomer-display"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fcustomer-owned-backup%40workspace%3Aextensions%2Fcustomer-owned-backup":
-  version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fcustomer-owned-backup%40workspace%3Aextensions%2Fcustomer-owned-backup"
+"@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fcustomer-owned-backup%40workspace%3Aextensions%2Fcustomer-owned-backup":
+  version: 0.0.0-use.local
+  resolution: "@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fcustomer-owned-backup%40workspace%3Aextensions%2Fcustomer-owned-backup"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fdata-hotfolder%40workspace%3Aextensions%2Fdata-hotfolder":
-  version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fdata-hotfolder%40workspace%3Aextensions%2Fdata-hotfolder"
+"@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fdata-hotfolder%40workspace%3Aextensions%2Fdata-hotfolder":
+  version: 0.0.0-use.local
+  resolution: "@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fdata-hotfolder%40workspace%3Aextensions%2Fdata-hotfolder"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fdms-nas-archive%40workspace%3Aextensions%2Fdms-nas-archive":
-  version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fdms-nas-archive%40workspace%3Aextensions%2Fdms-nas-archive"
+"@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fdms-nas-archive%40workspace%3Aextensions%2Fdms-nas-archive":
+  version: 0.0.0-use.local
+  resolution: "@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fdms-nas-archive%40workspace%3Aextensions%2Fdms-nas-archive"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Ferp-rest-odata%40workspace%3Aextensions%2Ferp-rest-odata":
-  version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Ferp-rest-odata%40workspace%3Aextensions%2Ferp-rest-odata"
+"@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Ferp-rest-odata%40workspace%3Aextensions%2Ferp-rest-odata":
+  version: 0.0.0-use.local
+  resolution: "@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Ferp-rest-odata%40workspace%3Aextensions%2Ferp-rest-odata"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fhello-world%40workspace%3Aextensions%2Fhello-world":
-  version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fhello-world%40workspace%3Aextensions%2Fhello-world"
+"@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fhello-world%40workspace%3Aextensions%2Fhello-world":
+  version: 0.0.0-use.local
+  resolution: "@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fhello-world%40workspace%3Aextensions%2Fhello-world"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Finternal-webhook-relay%40workspace%3Aextensions%2Finternal-webhook-relay":
-  version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Finternal-webhook-relay%40workspace%3Aextensions%2Finternal-webhook-relay"
+"@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Finternal-webhook-relay%40workspace%3Aextensions%2Finternal-webhook-relay":
+  version: 0.0.0-use.local
+  resolution: "@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Finternal-webhook-relay%40workspace%3Aextensions%2Finternal-webhook-relay"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fnetwork-printer%40workspace%3Aextensions%2Fnetwork-printer":
-  version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fnetwork-printer%40workspace%3Aextensions%2Fnetwork-printer"
+"@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fnetwork-printer%40workspace%3Aextensions%2Fnetwork-printer":
+  version: 0.0.0-use.local
+  resolution: "@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fnetwork-printer%40workspace%3Aextensions%2Fnetwork-printer"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fsqlserver-readonly%40workspace%3Aextensions%2Fsqlserver-readonly":
-  version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Fsqlserver-readonly%40workspace%3Aextensions%2Fsqlserver-readonly"
+"@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fsqlserver-readonly%40workspace%3Aextensions%2Fsqlserver-readonly":
+  version: 0.0.0-use.local
+  resolution: "@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Fsqlserver-readonly%40workspace%3Aextensions%2Fsqlserver-readonly"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@edge-connector/sdk@file:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Ftelephony-fritzbox%40workspace%3Aextensions%2Ftelephony-fritzbox":
-  version: 2.0.0
-  resolution: "@edge-connector/sdk@file:../../dependencies/edge-connector/sdk#../../dependencies/edge-connector/sdk::hash=b5e709&locator=%40edge-extensions%2Ftelephony-fritzbox%40workspace%3Aextensions%2Ftelephony-fritzbox"
+"@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Ftelephony-fritzbox%40workspace%3Aextensions%2Ftelephony-fritzbox":
+  version: 0.0.0-use.local
+  resolution: "@edge-connector/sdk@portal:../../dependencies/edge-connector/sdk::locator=%40edge-extensions%2Ftelephony-fritzbox%40workspace%3Aextensions%2Ftelephony-fritzbox"
   dependencies:
     socks: "npm:^2.8.10"
-  checksum: 10c0/19bd52f169e1a5d2485692c81d9ab354c8f9080de7873597a4c37505620fbf19b561447b8cffb995c4adbbef8cfb50ef282f6bc8b3821a1e4bfc5f8ab75398ba
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@edge-extensions/catalog@workspace:.":
   version: 0.0.0-use.local
@@ -411,7 +401,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/customer-display@workspace:extensions/customer-display"
   dependencies:
-    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+    "@edge-connector/sdk": "portal:../../dependencies/edge-connector/sdk"
     "@types/node": "npm:26.6.5"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
@@ -422,7 +412,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/customer-owned-backup@workspace:extensions/customer-owned-backup"
   dependencies:
-    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+    "@edge-connector/sdk": "portal:../../dependencies/edge-connector/sdk"
     "@types/node": "npm:26.6.5"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
@@ -433,7 +423,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/data-hotfolder@workspace:extensions/data-hotfolder"
   dependencies:
-    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+    "@edge-connector/sdk": "portal:../../dependencies/edge-connector/sdk"
     "@types/node": "npm:26.6.5"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
@@ -444,7 +434,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/dms-nas-archive@workspace:extensions/dms-nas-archive"
   dependencies:
-    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+    "@edge-connector/sdk": "portal:../../dependencies/edge-connector/sdk"
     "@types/node": "npm:26.6.5"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
@@ -455,7 +445,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/erp-rest-odata@workspace:extensions/erp-rest-odata"
   dependencies:
-    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+    "@edge-connector/sdk": "portal:../../dependencies/edge-connector/sdk"
     "@types/node": "npm:26.6.5"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
@@ -466,7 +456,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/hello-world@workspace:extensions/hello-world"
   dependencies:
-    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+    "@edge-connector/sdk": "portal:../../dependencies/edge-connector/sdk"
     "@types/node": "npm:26.6.5"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
@@ -477,7 +467,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/internal-webhook-relay@workspace:extensions/internal-webhook-relay"
   dependencies:
-    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+    "@edge-connector/sdk": "portal:../../dependencies/edge-connector/sdk"
     "@types/node": "npm:26.6.5"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
@@ -488,7 +478,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/network-printer@workspace:extensions/network-printer"
   dependencies:
-    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+    "@edge-connector/sdk": "portal:../../dependencies/edge-connector/sdk"
     "@types/node": "npm:26.6.5"
     tsx: "npm:^4.23.15"
     typescript: "npm:7.0.2"
@@ -499,7 +489,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/sqlserver-readonly@workspace:extensions/sqlserver-readonly"
   dependencies:
-    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+    "@edge-connector/sdk": "portal:../../dependencies/edge-connector/sdk"
     "@types/node": "npm:26.6.5"
     tedious: "npm:20.3.7"
     tsx: "npm:^4.23.15"
@@ -511,7 +501,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@edge-extensions/telephony-fritzbox@workspace:extensions/telephony-fritzbox"
   dependencies:
-    "@edge-connector/sdk": "file:../../dependencies/edge-connector/sdk"
+    "@edge-connector/sdk": "portal:../../dependencies/edge-connector/sdk"
     "@noble/hashes": "npm:2.4.0"
     "@types/node": "npm:26.6.5"
     saxes: "npm:^6.0.0"
@@ -1750,9 +1740,9 @@ __metadata:
   linkType: hard
 
 "undici@npm:^8.4.1":
-  version: 8.12.1
-  resolution: "undici@npm:8.12.1"
-  checksum: 10c0/8ba448a30f85ec9bffe0065b45b471a578dbb56eafd4162741fd7be3b955672e98fabd7a4ab0703365d5ffc6f1927f4ed1c1221f678aa67af18fb7bc3dfe283b
+  version: 8.12.4
+  resolution: "undici@npm:8.12.4"
+  checksum: 10c0/2a83590ce3347ca4e8fb83917bd7ad1d0bcb72ecb6d1a5066f01a89b4941becac569412aa27d7318119ea1a20d217018cce535f8eeed3c1b307d87426f96cfe3
   languageName: node
   linkType: hard
 

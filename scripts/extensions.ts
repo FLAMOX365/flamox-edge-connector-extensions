@@ -82,7 +82,7 @@ async function runOperation(
       ? ["--cwd", entry.path, "run", operation]
       : [
           "--import",
-          fileURLToPath(import.meta.resolve("tsx")),
+          import.meta.resolve("tsx"),
           join(repositoryRoot, "dependencies/edge-connector/cli/main.ts"),
           operation,
           entry.path,
