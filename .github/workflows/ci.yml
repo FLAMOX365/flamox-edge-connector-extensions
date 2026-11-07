@@ -23,6 +23,9 @@ jobs:
       run:
         shell: bash
     steps:
+      - name: Preserve submodule line endings on Windows
+        if: runner.os == 'Windows'
+        run: git config --global core.autocrlf false
       - name: Check out source and pinned SDK
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -37,9 +40,12 @@ jobs:
           # Replace the preinstalled Yarn Classic shims on hosted runners.
           npm install --global --force corepack@0.36.0
           corepack enable
-      - run: yarn install --immutable
       - name: Prepare pinned connector and SDK
-        run: yarn prepare:connector
+        working-directory: dependencies/edge-connector
+        run: |
+          yarn install --immutable
+          yarn build
+      - run: yarn install --immutable
       - name: Linux sandbox prerequisites
         if: runner.os == 'Linux'
         run: |
