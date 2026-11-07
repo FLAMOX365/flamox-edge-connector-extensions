@@ -36,7 +36,11 @@ test("every catalog extension executes its compiled action contracts in the OS s
         `verification-${crypto.randomUUID()}`,
       );
       await mkdir(dirname(output), { recursive: true });
-      t.after(() => rm(output, { recursive: true, force: true }));
+      let extensionHost: ExtensionHost | undefined;
+      t.after(async () => {
+        await extensionHost?.stop();
+        await rm(output, { recursive: true, force: true });
+      });
       const built = await buildProject(join(root, entry.path), output);
       assert.equal(built.manifest.runtime.entrypoint, "runtime/extension.mjs");
       const requests: {
@@ -214,7 +218,7 @@ test("every catalog extension executes its compiled action contracts in the OS s
           },
         },
       });
-      t.after(() => host.stop());
+      extensionHost = host;
       const exercised = new Set<string>();
       const execute = async (action: string, input: JsonValue = null) => {
         exercised.add(action);
